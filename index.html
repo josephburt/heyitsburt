@@ -3,16 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Links Page</title>
+    <title>Hey Its Burt</title>
     <style>
         body {
             font-family: Arial, sans-serif;
             text-align: center;
-            background-color: #f0f0f0;
             padding: 20px;
+            margin: 0;
         }
         .container {
-            background: white;
             padding: 20px;
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -23,16 +22,44 @@
             display: block;
             margin: 15px 0;
             text-decoration: none;
+            font-size: 1.2em;
+        }
+        /* Light theme styles */
+        body {
+            background-color: #f0f0f0;
+            color: #000;
+        }
+        .container {
+            background: white;
+        }
+        .link {
             color: #007bff;
         }
         .link:hover {
             text-decoration: underline;
         }
+        /* Dark theme styles */
+        @media (prefers-color-scheme: dark) {
+            body {
+                background-color: #121212;
+                color: #fff;
+            }
+            .container {
+                background: #1e1e1e;
+                box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+            }
+            .link {
+                color: #bb86fc;
+            }
+            .link:hover {
+                text-decoration: underline;
+            }
+        }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>Welcome to My Links Page</h1>
+        <h1>Links to Hey It's Burt's Social Pages & Donation/Support</h1>
         <a class="link" href="https://www.facebook.com/heyitsburtcom" target="_blank">Facebook</a>
         <a class="link" href="https://www.instagram.com/heyitsburt/" target="_blank">Instagram</a>
         <a class="link" href="https://www.twitch.tv/heyitsjburt" target="_blank">Twitch</a>
