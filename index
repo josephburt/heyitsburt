@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Links Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f0f0f0;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            margin: auto;
+        }
+        .link {
+            display: block;
+            margin: 15px 0;
+            text-decoration: none;
+            color: #007bff;
+        }
+        .link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Welcome to My Links Page</h1>
+        <a class="link" href="https://www.facebook.com/heyitsburtcom" target="_blank">Facebook</a>
+        <a class="link" href="https://www.instagram.com/heyitsburt/" target="_blank">Instagram</a>
+        <a class="link" href="https://www.twitch.tv/heyitsjburt" target="_blank">Twitch</a>
+        <a class="link" href="https://www.youtube.com/@heyitsburt" target="_blank">YouTube</a>
+        <a class="link" href="https://www.paypal.com/ncp/payment/G8UW4UVQ6W72G" target="_blank">Donate via PayPal</a>
+        <a class="link" href="https://cash.app/$misterburt" target="_blank">Donate via Cash App</a>
+    </div>
+</body>
+</html>
