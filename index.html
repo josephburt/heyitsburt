@@ -7,66 +7,87 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            text-align: center;
-            padding: 20px;
+            line-height: 1.6;
             margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+            color: #333;
         }
-        .container {
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            max-width: 600px;
-            margin: auto;
+        header {
+            background: #333;
+            color: #fff;
+            padding: 10px 20px;
+            text-align: center;
         }
-        .link {
-            display: block;
-            margin: 15px 0;
+        nav a {
+            color: #fff;
             text-decoration: none;
-            font-size: 1.2em;
+            margin: 0 10px;
         }
-        /* Light theme styles */
-        body {
-            background-color: #f0f0f0;
-            color: #000;
+        section {
+            padding: 20px;
         }
-        .container {
-            background: white;
+        .social-links, .monetary-links {
+            margin-top: 20px;
         }
-        .link {
-            color: #007bff;
+        .links a {
+            display: inline-block;
+            margin: 5px;
+            padding: 10px 15px;
+            background: #333;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
         }
-        .link:hover {
-            text-decoration: underline;
+        .links a:hover {
+            background: #555;
         }
-        /* Dark theme styles */
-        @media (prefers-color-scheme: dark) {
-            body {
-                background-color: #121212;
-                color: #fff;
-            }
-            .container {
-                background: #1e1e1e;
-                box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
-            }
-            .link {
-                color: #bb86fc;
-            }
-            .link:hover {
-                text-decoration: underline;
-            }
+        footer {
+            text-align: center;
+            padding: 10px 0;
+            background: #333;
+            color: #fff;
+            margin-top: 20px;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Hey It's Burt's Link Page</h1>
-        <a class="link" href="https://www.facebook.com/heyitsburtcom" target="_blank">Facebook</a>
-        <a class="link" href="https://www.instagram.com/heyitsburt/" target="_blank">Instagram</a>
-        <a class="link" href="https://www.twitch.tv/heyitsjburt" target="_blank">Twitch</a>
-        <a class="link" href="https://www.youtube.com/@heyitsburt" target="_blank">YouTube</a>
-        <a class="link" href="https://www.paypal.com/ncp/payment/G8UW4UVQ6W72G" target="_blank">Donate via PayPal</a>
-        <a class="link" href="https://account.venmo.com/pay?audience=public&note=Link%20Page%20Donation%20Link&recipients=%2Cheyitsburt&txn=pay" target="_blank">Donate via Venmo</a>
-        <a class="link" href="https://cash.app/$misterburt" target="_blank">Donate via Cash App</a>
-    </div>
+    <header>
+        <h1>Hey Its Burt</h1>
+        <nav>
+            <a href="#about">About</a>
+            <a href="#social">Social Links</a>
+            <a href="#support">Support Me</a>
+        </nav>
+    </header>
+
+    <section id="about">
+        <h2>About Me</h2>
+        <p>Hi, I'm Joseph Burt! Welcome to my website where I share my projects, ideas, and everything in between. Thanks for stopping by!</p>
+    </section>
+
+    <section id="social" class="social-links">
+        <h2>Social Links</h2>
+        <div class="links">
+            <a href="https://www.youtube.com/@JosephBurt-Main" target="_blank">YouTube</a>
+            <a href="https://instagram.com/heyitsburt/" target="_blank">Instagram</a>
+            <a href="https://facebook.com/heyitsburtcom" target="_blank">Facebook Page</a>
+            <a href="https://twitch.tv/heyitsjburt" target="_blank">Twitch</a>
+            <a href="https://www.tiktok.com/@hey_its_burt" target="_blank">TikTok</a>
+            <a href="https://x.com/josephburt" target="_blank">X (Twitter)</a>
+        </div>
+    </section>
+
+    <section id="support" class="monetary-links">
+        <h2>Support Me</h2>
+        <div class="links">
+            <a href="https://cash.app/$misterburt" target="_blank">CashApp</a>
+            <a href="https://venmo.com/pay?audience=public&note=Link%20Page%20Donation%20Link&recipients=%2Cheyitsburt&txn=pay" target="_blank" target="_blank">Venmo</a>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2025 Hey Its Burt. All rights reserved.</p>
+    </footer>
 </body>
 </html>
