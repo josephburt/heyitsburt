@@ -149,8 +149,16 @@
                     return 'Error fetching ISP information. Please try again.';
                 }
             },
+            'reboot': () => {
+                location.reload();
+                return 'Rebooting...';
+            },
+            'exit': () => {
+                window.location.href = 'https://www.google.com';
+                return 'Exiting to Google...';
+            },
             'clear': () => document.getElementById('history').innerHTML = '',
-            'help': 'Available commands: about, social, support, whoami, localisp, clear, help'
+            'help': 'Available commands: about, social, support, whoami, localisp, reboot, exit, clear, help'
         };
 
         const input = document.getElementById('commandInput');
