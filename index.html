@@ -145,7 +145,7 @@
                     const { lat, lon, city } = locData;
 
                     // Step 3: Get weather
-                    const weatherResponse = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&appid=${apiKey}`);
+                    const weatherResponse = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&appid=${58848755a2b4ec009ba686b4cc230fce}`);
                     if (!weatherResponse.ok) throw new Error('Weather API failed');
                     const weatherData = await weatherResponse.json();
 
