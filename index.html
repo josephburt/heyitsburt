@@ -128,30 +128,40 @@
                 }
                 return `Browser: ${userAgent}<br>Public IP: ${ip}`;
             },
-            'localisp': async () => {
+            'weather': async () => {
+                const apiKey = '58848755a2b4ec009ba686b4cc230fce'; // Replace with your OpenWeatherMap API key
                 try {
-                    // Step 1: Get public IP
+                    // Step 1: Get IP
                     const ipResponse = await fetch('https://api.ipify.org?format=json');
-                    if (!ipResponse.ok) throw new Error(`IPify API failed with status: ${ipResponse.status}`);
+                    if (!ipResponse.ok) throw new Error('IPify API failed');
                     const ipData = await ipResponse.json();
                     const ip = ipData.ip;
 
-                    // Step 2: Get ISP info
-                    const ispResponse = await fetch(`http://ip-api.com/json/${ip}`);
-                    if (!ispResponse.ok) throw new Error(`IP-API failed with status: ${ispResponse.status}`);
-                    const ispData = await ispResponse.json();
+                    // Step 2: Get location from IP
+                    const locResponse = await fetch(`http://ip-api.com/json/${ip}`);
+                    if (!locResponse.ok) throw new Error('IP-API failed');
+                    const locData = await locResponse.json();
+                    if (locData.status !== 'success') throw new Error('Location lookup failed');
+                    const { lat, lon, city } = locData;
 
-                    if (ispData.status === 'success') {
-                        return `ISP: ${ispData.isp}<br>` +
-                               `Organization: ${ispData.org}<br>` +
-                               `Location: ${ispData.city}, ${ispData.regionName}, ${ispData.country}<br>` +
-                               `Public IP: ${ispData.query}`;
-                    } else {
-                        return 'ISP lookup failed. API response: ' + ispData.message;
-                    }
+                    // Step 3: Get weather
+                    const weatherResponse = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&appid=${apiKey}`);
+                    if (!weatherResponse.ok) throw new Error('Weather API failed');
+                    const weatherData = await weatherResponse.json();
+
+                    const temp = weatherData.main.temp;
+                    const description = weatherData.weather[0].description;
+                    const humidity = weatherData.main.humidity;
+                    const windSpeed = weatherData.wind.speed;
+
+                    return `Current Weather in ${city}:<br>` +
+                           `Temperature: ${temp}°C<br>` +
+                           `Conditions: ${description}<br>` +
+                           `Humidity: ${humidity}%<br>` +
+                           `Wind Speed: ${windSpeed} m/s`;
                 } catch (e) {
-                    console.error('Local ISP fetch failed:', e.message);
-                    return `Error fetching ISP info: ${e.message}. Check console for details.`;
+                    console.error('Weather fetch failed:', e.message);
+                    return `Error fetching weather: ${e.message}. Replace YOUR_API_KEY_HERE with a valid OpenWeatherMap API key.`;
                 }
             },
             'reboot': () => {
@@ -163,7 +173,7 @@
                 return 'Exiting to Google...';
             },
             'clear': () => document.getElementById('history').innerHTML = '',
-            'help': 'Available commands: about, social, support, whoami, localisp, reboot, exit, clear, help'
+            'help': 'Available commands: about, social, support, whoami, weather, reboot, exit, clear, help'
         };
 
         const input = document.getElementById('commandInput');
