@@ -120,20 +120,25 @@
                 let ip = 'Unable to fetch IP';
                 try {
                     const response = await fetch('https://api.ipify.org?format=json');
+                    if (!response.ok) throw new Error('IPify API failed');
                     const data = await response.json();
                     ip = data.ip;
                 } catch (e) {
-                    console.error('IP fetch failed:', e);
+                    console.error('IP fetch failed:', e.message);
                 }
                 return `Browser: ${userAgent}<br>Public IP: ${ip}`;
             },
             'localisp': async () => {
                 try {
+                    // Step 1: Get public IP
                     const ipResponse = await fetch('https://api.ipify.org?format=json');
+                    if (!ipResponse.ok) throw new Error(`IPify API failed with status: ${ipResponse.status}`);
                     const ipData = await ipResponse.json();
                     const ip = ipData.ip;
 
+                    // Step 2: Get ISP info
                     const ispResponse = await fetch(`http://ip-api.com/json/${ip}`);
+                    if (!ispResponse.ok) throw new Error(`IP-API failed with status: ${ispResponse.status}`);
                     const ispData = await ispResponse.json();
 
                     if (ispData.status === 'success') {
@@ -142,11 +147,11 @@
                                `Location: ${ispData.city}, ${ispData.regionName}, ${ispData.country}<br>` +
                                `Public IP: ${ispData.query}`;
                     } else {
-                        return 'Unable to fetch ISP info at this time.';
+                        return 'ISP lookup failed. API response: ' + ispData.message;
                     }
                 } catch (e) {
-                    console.error('ISP fetch failed:', e);
-                    return 'Error fetching ISP information. Please try again.';
+                    console.error('Local ISP fetch failed:', e.message);
+                    return `Error fetching ISP info: ${e.message}. Check console for details.`;
                 }
             },
             'reboot': () => {
