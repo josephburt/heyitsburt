@@ -8,7 +8,7 @@
         :root {
             --black: #000000;
             --dark-gray: #4A4A4A;
-            --darker-gray: #2A2A2A; /* Slightly lighter than #1E1E1E */
+            --darker-gray: #2A2A2A;
             --dark-yellow-orange: #CC8400;
         }
 
@@ -127,23 +127,30 @@
                 }
                 return `Browser: ${userAgent}<br>Public IP: ${ip}`;
             },
-            'speedtest': async () => {
-                const startTime = performance.now();
-                const fileUrl = 'https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_92x30dp.png'; // ~10KB file
+            'localisp': async () => {
                 try {
-                    const response = await fetch(fileUrl);
-                    const blob = await response.blob();
-                    const endTime = performance.now();
-                    const timeTaken = (endTime - startTime) / 1000; // seconds
-                    const fileSize = blob.size / 1024; // KB
-                    const speed = (fileSize / timeTaken).toFixed(2); // KB/s
-                    return `Download Speed: ${speed} KB/s (Tested with a ${fileSize.toFixed(2)} KB file in ${timeTaken.toFixed(2)} seconds)`;
+                    const ipResponse = await fetch('https://api.ipify.org?format=json');
+                    const ipData = await ipResponse.json();
+                    const ip = ipData.ip;
+
+                    const ispResponse = await fetch(`http://ip-api.com/json/${ip}`);
+                    const ispData = await ispResponse.json();
+
+                    if (ispData.status === 'success') {
+                        return `ISP: ${ispData.isp}<br>` +
+                               `Organization: ${ispData.org}<br>` +
+                               `Location: ${ispData.city}, ${ispData.regionName}, ${ispData.country}<br>` +
+                               `Public IP: ${ispData.query}`;
+                    } else {
+                        return 'Unable to fetch ISP info at this time.';
+                    }
                 } catch (e) {
-                    return 'Speed test failed. Please try again.';
+                    console.error('ISP fetch failed:', e);
+                    return 'Error fetching ISP information. Please try again.';
                 }
             },
             'clear': () => document.getElementById('history').innerHTML = '',
-            'help': 'Available commands: about, social, support, whoami, speedtest, clear, help'
+            'help': 'Available commands: about, social, support, whoami, localisp, clear, help'
         };
 
         const input = document.getElementById('commandInput');
