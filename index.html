@@ -128,42 +128,6 @@
                 }
                 return `Browser: ${userAgent}<br>Public IP: ${ip}`;
             },
-            'weather': async () => {
-                const apiKey = '58848755a2b4ec009ba686b4cc230fce'; // Replace with your OpenWeatherMap API key
-                try {
-                    // Step 1: Get IP
-                    const ipResponse = await fetch('https://api.ipify.org?format=json');
-                    if (!ipResponse.ok) throw new Error('IPify API failed');
-                    const ipData = await ipResponse.json();
-                    const ip = ipData.ip;
-
-                    // Step 2: Get location from IP
-                    const locResponse = await fetch(`http://ip-api.com/json/${ip}`);
-                    if (!locResponse.ok) throw new Error('IP-API failed');
-                    const locData = await locResponse.json();
-                    if (locData.status !== 'success') throw new Error('Location lookup failed');
-                    const { lat, lon, city } = locData;
-
-                    // Step 3: Get weather
-                    const weatherResponse = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&appid=${58848755a2b4ec009ba686b4cc230fce}`);
-                    if (!weatherResponse.ok) throw new Error('Weather API failed');
-                    const weatherData = await weatherResponse.json();
-
-                    const temp = weatherData.main.temp;
-                    const description = weatherData.weather[0].description;
-                    const humidity = weatherData.main.humidity;
-                    const windSpeed = weatherData.wind.speed;
-
-                    return `Current Weather in ${city}:<br>` +
-                           `Temperature: ${temp}°C<br>` +
-                           `Conditions: ${description}<br>` +
-                           `Humidity: ${humidity}%<br>` +
-                           `Wind Speed: ${windSpeed} m/s`;
-                } catch (e) {
-                    console.error('Weather fetch failed:', e.message);
-                    return `Error fetching weather: ${e.message}. Replace YOUR_API_KEY_HERE with a valid OpenWeatherMap API key.`;
-                }
-            },
             'reboot': () => {
                 location.reload();
                 return 'Rebooting...';
@@ -173,7 +137,7 @@
                 return 'Exiting to Google...';
             },
             'clear': () => document.getElementById('history').innerHTML = '',
-            'help': 'Available commands: about, social, support, whoami, weather, reboot, exit, clear, help'
+            'help': 'Available commands: about, social, support, whoami, reboot, exit, clear, help'
         };
 
         const input = document.getElementById('commandInput');
