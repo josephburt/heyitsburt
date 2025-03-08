@@ -93,12 +93,12 @@
     <div class="terminal">
         <div class="history" id="history">
             <div class="command-line">
-                <span class="prompt">burt@terminal:~$ </span> help
+                <span class="prompt">burt@heyitsburt.com:~$ </span> help
             </div>
             <div class="output" id="initial-output"></div>
         </div>
         <div class="command-line">
-            <span class="prompt">burt@terminal:~$ </span>
+            <span class="prompt">burt@heyitsburt.com:~$ </span>
             <input type="text" class="command-input" id="commandInput" autofocus>
             <span class="cursor"></span>
         </div>
@@ -167,7 +167,7 @@
         function addToHistory(command, output) {
             const commandDiv = document.createElement('div');
             commandDiv.className = 'command-line';
-            commandDiv.innerHTML = `<span class="prompt">burt@terminal:~$ </span> ${command}`;
+            commandDiv.innerHTML = `<span class="prompt">burt@heyitsburt.com:~$ </span> ${command}`;
 
             const outputDiv = document.createElement('div');
             outputDiv.className = 'output';
@@ -198,7 +198,7 @@
         // Initial typing effect for "help"
         const initialCommand = document.querySelector('.command-line');
         const initialOutput = document.getElementById('initial-output');
-        initialCommand.textContent = 'burt@terminal:~$ ';
+        initialCommand.textContent = 'burt@heyitsburt.com:~$ ';
         initialOutput.textContent = '';
 
         let i = 0;
