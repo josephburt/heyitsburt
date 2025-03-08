@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hey Its Burt</title>
+    <style>
+        :root {
+            --black: #000000;
+            --dark-gray: #4A4A4A;
+            --darker-gray: #1E1E1E;
+            --dark-yellow-orange: #CC8400; /* Changed from #FF4500 */
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Courier New', monospace;
+            background-color: var(--darker-gray);
+            color: var(--dark-gray);
+            line-height: 1.6;
+            padding: 20px;
+            overflow-x: hidden;
+        }
+
+        .terminal {
+            max-width: 900px;
+            margin: 0 auto;
+            background: var(--black);
+            padding: 20px;
+            border: 2px solid var(--dark-gray);
+            border-radius: 5px;
+            min-height: 100vh;
+            position: relative;
+        }
+
+        .prompt {
+            color: var(--dark-yellow-orange);
+            margin-right: 10px;
+        }
+
+        .command {
+            color: var(--dark-gray);
+        }
+
+        .output {
+            margin-left: 20px;
+            margin-bottom: 10px;
+        }
+
+        .output a {
+            color: var(--dark-yellow-orange);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .output a:hover {
+            color: #FFB84D; /* Lighter yellow-orange on hover */
+            text-decoration: underline;
+        }
+
+        .cursor {
+            display: inline-block;
+            width: 10px;
+            height: 1.2em;
+            background: var(--dark-yellow-orange);
+            vertical-align: middle;
+            animation: blink 0.8s infinite;
+        }
+
+        @keyframes blink {
+            50% { opacity: 0; }
+        }
+
+        .section {
+            margin-bottom: 20px;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        footer {
+            color: var(--dark-gray);
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="terminal">
+        <div class="section" id="header">
+            <span class="prompt">></span> <span class="command" data-text="whoami">whoami</span><br>
+            <div class="output">Hey Its Burt</div>
+            <span class="prompt">></span> <span class="command" data-text="nav">nav</span><br>
+            <div class="output">
+                <a href="#about">about</a> | 
+                <a href="#social">social</a> | 
+                <a href="#support">support</a>
+            </div>
+        </div>
+
+        <div class="section hidden" id="about">
+            <span class="prompt">></span> <span class="command" data-text="cat about.txt">cat about.txt</span><br>
+            <div class="output">
+                Hi, I'm Joseph Burt! Welcome to my website where I share my projects, ideas, and everything in between. Thanks for stopping by!
+            </div>
+        </div>
+
+        <div class="section hidden" id="social">
+            <span class="prompt">></span> <span class="command" data-text="ls social">ls social</span><br>
+            <div class="output">
+                <a href="https://www.youtube.com/@JosephBurt-Main" target="_blank">YouTube</a> | 
+                <a href="https://instagram.com/heyitsburt/" target="_blank">Instagram</a> | 
+                <a href="https://facebook.com/heyitsburtcom" target="_blank">Facebook</a> | 
+                <a href="https://twitch.tv/heyitsjburt" target="_blank">Twitch</a> | 
+                <a href="https://www.tiktok.com/@hey_its_burt" target="_blank">TikTok</a> | 
+                <a href="https://x.com/josephburt" target="_blank">X</a>
+            </div>
+        </div>
+
+        <div class="section hidden" id="support">
+            <span class="prompt">></span> <span class="command" data-text="cat support.txt">cat support.txt</span><br>
+            <div class="output">
+                <a href="https://cash.app/$misterburt" target="_blank">CashApp</a> | 
+                <a href="https://venmo.com/pay?audience=public¬e=Link%20Page%20Donation%20Link&recipients=%2Cheyitsburt&txn=pay" target="_blank">Venmo</a>
+            </div>
+        </div>
+
+        <div class="input-line">
+            <span class="prompt">></span> <span id="input-text"></span><span class="cursor"></span>
+        </div>
+
+        <footer>© 2025 Hey Its Burt. All rights reserved.</footer>
+    </div>
+
+    <script>
+        const sections = document.querySelectorAll('.section');
+        const commands = document.querySelectorAll('.command');
+        const inputText = document.getElementById('input-text');
+
+        // Typing effect for commands
+        function typeCommand(element, text, callback) {
+            let i = 0;
+            element.textContent = '';
+            function type() {
+                if (i < text.length) {
+                    element.textContent += text.charAt(i);
+                    i++;
+                    setTimeout(type, 50);
+                } else if (callback) {
+                    setTimeout(callback, 200);
+                }
+            }
+            type();
+        }
+
+        // Show output after typing
+        function showOutput(section) {
+            const output = section.querySelector('.output');
+            output.style.display = 'block';
+        }
+
+        // Initial load: type header commands
+        typeCommand(commands[0], commands[0].dataset.text, () => {
+            showOutput(sections[0]);
+            typeCommand(commands[1], commands[1].dataset.text, () => {
+                showOutput(sections[0]);
+            });
+        });
+
+        // Handle navigation clicks
+        document.querySelectorAll('a[href^="#"]').forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const targetId = link.getAttribute('href').substring(1);
+                const targetSection = document.getElementById(targetId);
+                sections.forEach(s => s.classList.add('hidden'));
+                targetSection.classList.remove('hidden');
+                const command = targetSection.querySelector('.command');
+                const output = targetSection.querySelector('.output');
+                output.style.display = 'none';
+                typeCommand(command, command.dataset.text, () => showOutput(targetSection));
+            });
+        });
+
+        // Simulated terminal input (for effect only)
+        const fakeInputs = ['dir', 'whoami', 'help', 'social'];
+        let inputIndex = 0;
+
+        function simulateInput() {
+            let i = 0;
+            const text = fakeInputs[inputIndex];
+            inputText.textContent = '';
+            function typeInput() {
+                if (i < text.length) {
+                    inputText.textContent += text.charAt(i);
+                    i++;
+                    setTimeout(typeInput, 100);
+                } else {
+                    setTimeout(() => {
+                        inputText.textContent = '';
+                        inputIndex = (inputIndex + 1) % fakeInputs.length;
+                        simulateInput();
+                    }, 1000);
+                }
+            }
+            typeInput();
+        }
+
+        simulateInput();
+    </script>
+</body>
+</html>
