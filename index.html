@@ -3,197 +3,90 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hey Its Burt</title>
+    <title>Burt's Links | heyitsburt.com</title>
     <style>
-        :root {
-            --black: #000000;
-            --dark-gray: #4A4A4A;
-            --darker-gray: #2A2A2A;
-            --dark-yellow-orange: #CC8400;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
         body {
-            font-family: 'Courier New', monospace;
-            background-color: var(--darker-gray);
-            color: var(--dark-gray);
+            font-family: Arial, sans-serif;
+            margin: 0;
             padding: 20px;
-            line-height: 1.6;
-        }
-
-        .terminal {
-            max-width: 900px;
-            margin: 0 auto;
-            background: var(--black);
-            padding: 20px;
-            border: 2px solid var(--dark-gray);
-            border-radius: 5px;
-            min-height: 100vh;
-        }
-
-        .prompt {
-            color: var(--dark-yellow-orange);
-        }
-
-        .command-line {
             display: flex;
+            justify-content: center;
             align-items: center;
-            margin-bottom: 10px;
+            min-height: 100vh;
+            background: linear-gradient(45deg, #1a1a1a, #2a2a2a, #1a1a1a);
+            background-size: 200% 200%;
+            animation: gradientBG 15s ease infinite;
+            color: #ffffff;
         }
 
-        .command-input {
-            background: none;
-            border: none;
-            color: var(--dark-gray);
-            font-family: 'Courier New', monospace;
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .container {
+            max-width: 400px;
+            width: 100%;
+            text-align: center;
+        }
+
+        .profile-img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            object-fit: cover;
+            border: 2px solid #ffffff;
+        }
+
+        .name {
+            font-size: 24px;
+            margin-bottom: 15px;
+            color: #ffffff;
+        }
+
+        .about {
             font-size: 16px;
-            outline: none;
-            flex-grow: 1;
+            margin-bottom: 30px;
+            color: #cccccc;
+            padding: 0 20px;
         }
 
-        .output {
-            margin-left: 20px;
-            margin-bottom: 10px;
-        }
-
-        .output a {
-            color: var(--dark-yellow-orange);
+        .link-button {
+            display: block;
+            background-color: #333333;
+            padding: 15px 20px;
+            margin: 10px 0;
             text-decoration: none;
+            color: #ffffff;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+            transition: all 0.3s ease;
         }
 
-        .output a:hover {
-            color: #FFB84D;
-            text-decoration: underline;
-        }
-
-        .cursor {
-            display: inline-block;
-            width: 10px;
-            height: 1.2em;
-            background: var(--dark-yellow-orange);
-            vertical-align: middle;
-            animation: blink 0.8s infinite;
-        }
-
-        @keyframes blink {
-            50% { opacity: 0; }
-        }
-
-        .history {
-            margin-bottom: 20px;
+        .link-button:hover {
+            background-color: #444444;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.4);
         }
     </style>
 </head>
 <body>
-    <div class="terminal">
-        <div class="history" id="history">
-            <div class="command-line">
-                <span class="prompt">burt@heyitsburt.com:~$ </span> help
-            </div>
-            <div class="output" id="initial-output"></div>
+    <div class="container">
+        <img src="https://github.com/josephburt.png" alt="Joseph Burt's Profile" class="profile-img">
+        <div class="name">Hey, It's Burt!</div>
+        <div class="about">
+            Hey there! I'm Joseph Burt, and this is my corner of the internet where I showcase my projects, share my thoughts, and everything else that inspires me. Glad you dropped by!
         </div>
-        <div class="command-line">
-            <span class="prompt">burt@heyitsburt.com:~$ </span>
-            <input type="text" class="command-input" id="commandInput" autofocus>
-            <span class="cursor"></span>
-        </div>
+        
+        <a href="https://youtube.com/@JosephBurt-Main" class="link-button">YouTube</a>
+        <a href="https://instagram.com/heyitsburt" class="link-button">Instagram</a>
+        <a href="https://facebook.com/heyitsburtcom" class="link-button">Facebook</a>
+        <a href="https://twitch.tv/heyitsjburt" class="link-button">Twitch</a>
+        <a href="https://tiktok.com/@hey_its_burt" class="link-button">TikTok</a>
+        <a href="https://x.com/josephburt" class="link-button">X</a>
+        <a href="https://cash.app/$misterburt" class="link-button">CashApp</a>
     </div>
-
-    <script>
-        const commands = {
-            'about': 'Hi, I\'m Joseph Burt! Welcome to my website where I share my projects, ideas, and everything in between. Thanks for stopping by!',
-            'social': 'YouTube: <a href="https://www.youtube.com/@JosephBurt-Main" target="_blank">youtube.com/@JosephBurt-Main</a><br>' +
-                     'Instagram: <a href="https://instagram.com/heyitsburt/" target="_blank">instagram.com/heyitsburt</a><br>' +
-                     'Facebook: <a href="https://facebook.com/heyitsburtcom" target="_blank">facebook.com/heyitsburtcom</a><br>' +
-                     'Twitch: <a href="https://twitch.tv/heyitsjburt" target="_blank">twitch.tv/heyitsjburt</a><br>' +
-                     'TikTok: <a href="https://www.tiktok.com/@hey_its_burt" target="_blank">tiktok.com/@hey_its_burt</a><br>' +
-                     'X: <a href="https://x.com/josephburt" target="_blank">x.com/josephburt</a>',
-            'support': 'CashApp: <a href="https://cash.app/$misterburt" target="_blank">cash.app/$misterburt</a><br>' +
-                       'Venmo: <a href="https://venmo.com/pay?audience=public¬e=Link%20Page%20Donation%20Link&recipients=%2Cheyitsburt&txn=pay" target="_blank">venmo.com/heyitsburt</a>',
-            'whoami': async () => {
-                const userAgent = navigator.userAgent;
-                let ip = 'Unable to fetch IP';
-                try {
-                    const response = await fetch('https://api.ipify.org?format=json');
-                    if (!response.ok) throw new Error('IPify API failed');
-                    const data = await response.json();
-                    ip = data.ip;
-                } catch (e) {
-                    console.error('IP fetch failed:', e.message);
-                }
-                return `Browser: ${userAgent}<br>Public IP: ${ip}`;
-            },
-            'reboot': () => {
-                location.reload();
-                return 'Rebooting...';
-            },
-            'exit': () => {
-                window.location.href = 'https://www.google.com';
-                return 'Exiting to Google...';
-            },
-            'clear': () => document.getElementById('history').innerHTML = '',
-            'help': 'Available commands: about, social, support, whoami, reboot, exit, clear, help'
-        };
-
-        const input = document.getElementById('commandInput');
-        const history = document.getElementById('history');
-
-        function addToHistory(command, output) {
-            const commandDiv = document.createElement('div');
-            commandDiv.className = 'command-line';
-            commandDiv.innerHTML = `<span class="prompt">burt@heyitsburt.com:~$ </span> ${command}`;
-
-            const outputDiv = document.createElement('div');
-            outputDiv.className = 'output';
-            outputDiv.innerHTML = output;
-
-            history.appendChild(commandDiv);
-            history.appendChild(outputDiv);
-        }
-
-        input.addEventListener('keydown', async (e) => {
-            if (e.key === 'Enter') {
-                const command = input.value.trim().toLowerCase();
-                input.value = '';
-
-                if (command in commands) {
-                    const output = typeof commands[command] === 'function' ? await commands[command]() : commands[command];
-                    if (output) {
-                        addToHistory(command, output);
-                    }
-                } else {
-                    addToHistory(command, 'Command not found. Type "help" for available commands.');
-                }
-
-                window.scrollTo(0, document.body.scrollHeight);
-            }
-        });
-
-        // Initial typing effect for "help"
-        const initialCommand = document.querySelector('.command-line');
-        const initialOutput = document.getElementById('initial-output');
-        initialCommand.textContent = 'burt@heyitsburt.com:~$ ';
-        initialOutput.textContent = '';
-
-        let i = 0;
-        const text = 'help';
-        function typeInitial() {
-            if (i < text.length) {
-                initialCommand.textContent += text.charAt(i);
-                i++;
-                setTimeout(typeInitial, 100);
-            } else {
-                setTimeout(() => {
-                    initialOutput.textContent = commands['help'];
-                }, 200);
-            }
-        }
-        setTimeout(typeInitial, 500);
-    </script>
 </body>
 </html>
