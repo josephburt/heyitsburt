@@ -1,22 +1,22 @@
 /* Define color palette and other variables */
 :root {
-    --bg-gradient-start: #1f1f1f; /* Slightly adjusted dark shades */
-    --bg-gradient-mid: #2d2d2d;
-    --bg-gradient-end: #1f1f1f;
-    --text-primary: #e0e0e0;     /* Slightly off-white for less harshness */
-    --text-secondary: #a0a0a0;   /* Muted text color */
-    --accent-color: #4a90e2;     /* Example accent - could be link hover/border */
-    --link-bg: #383838;          /* Button background */
-    --link-bg-hover: #4a4a4a;     /* Button background on hover/focus */
-    --link-text: var(--text-primary);
-    --border-color: #555555;
-    --shadow-color: rgba(0, 0, 0, 0.4);
-    --shadow-color-hover: rgba(0, 0, 0, 0.6);
+    /* Spring Color Palette */
+    --bg-gradient-start: #e0f7fa; /* Light Cyan/Sky Blue */
+    --bg-gradient-mid:   #e8f5e9; /* Pale Mint Green */
+    --bg-gradient-end:   #fffde7; /* Very Pale Yellow */
+    --text-primary:      #37474f; /* Dark Slate Grey (for good contrast) */
+    --text-secondary:    #546e7a; /* Lighter Slate Grey */
+    --accent-color:      #ff8a65; /* Soft Coral/Orange (for focus outline) */
+    --link-bg:           #a5d6a7; /* Medium Mint Green */
+    --link-bg-hover:     #81c784; /* Slightly Darker Mint Green */
+    --link-text:         #263238; /* Dark Blue Grey (contrast on link bg) */
+    --border-color:      #b0bec5; /* Light Blue Grey (for profile image border) */
+    --shadow-color:      rgba(100, 100, 100, 0.15); /* Lighter, softer shadow */
+    --shadow-color-hover:rgba(100, 100, 100, 0.25); /* Slightly darker hover shadow */
 
-    /* Using Inter font from Google Fonts, with fallbacks */
+    /* Font and other variables remain the same */
     --font-family-main: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
-
-    --border-radius: 8px;       /* Slightly larger radius */
+    --border-radius: 8px;
     --transition-speed: 0.25s;
 }
 
@@ -34,7 +34,7 @@ body {
     align-items: center;
     min-height: 100vh;
     padding: 20px; /* Add padding for smaller screens */
-    color: var(--text-primary);
+    color: var(--text-primary); /* Uses dark slate grey */
     background: linear-gradient(45deg, var(--bg-gradient-start), var(--bg-gradient-mid), var(--bg-gradient-end));
     background-size: 200% 200%;
     animation: gradientBG 15s ease infinite;
@@ -60,62 +60,62 @@ body {
 }
 
 .profile-img {
-    width: 140px;  /* Slightly smaller */
+    width: 140px;
     height: 140px;
     border-radius: 50%;
     margin: 0 auto 20px;
     object-fit: cover;
-    border: 3px solid var(--border-color); /* Use variable */
-    box-shadow: 0 4px 15px var(--shadow-color); /* Add a subtle shadow */
+    border: 3px solid var(--border-color); /* Uses light blue grey border */
+    box-shadow: 0 4px 15px var(--shadow-color); /* Uses softer shadow */
 }
 
 .name {
-    font-size: 1.8rem; /* Responsive font size */
-    font-weight: 700; /* Bolder if using a font with weights */
+    font-size: 1.8rem;
+    font-weight: 700;
     margin-bottom: 10px;
-    color: var(--text-primary);
+    color: var(--text-primary); /* Uses dark slate grey */
 }
 
 .about {
     font-size: 1rem;
-    color: var(--text-secondary);
+    color: var(--text-secondary); /* Uses lighter slate grey */
     line-height: 1.6;
-    max-width: 380px; /* Constrain line length */
-    margin: 0 auto; /* Center if max-width applies */
+    max-width: 380px;
+    margin: 0 auto;
 }
 
 /* Links Navigation */
 .links-nav ul {
-    list-style: none; /* Remove default bullet points */
+    list-style: none;
     padding: 0;
     margin: 0;
 }
 
 .links-nav li {
-    margin: 12px 0; /* Space between buttons */
+    margin: 12px 0;
 }
 
 .link-button {
     display: block;
-    background-color: var(--link-bg);
-    padding: 16px 20px; /* Adjust padding */
+    background-color: var(--link-bg); /* Uses medium mint green */
+    padding: 16px 20px;
     text-decoration: none;
-    color: var(--link-text);
+    color: var(--link-text); /* Uses dark blue grey for contrast */
     border-radius: var(--border-radius);
-    box-shadow: 0 2px 5px var(--shadow-color);
+    box-shadow: 0 2px 5px var(--shadow-color); /* Uses softer shadow */
     transition:
         background-color var(--transition-speed) ease,
         transform var(--transition-speed) ease,
         box-shadow var(--transition-speed) ease;
-    font-weight: 500; /* Slightly bolder text */
-    border: 1px solid transparent; /* Prepare for potential border on hover/focus */
+    font-weight: 500;
+    border: 1px solid transparent;
 }
 
 /* Hover and Focus States for Buttons */
 .link-button:hover {
-    background-color: var(--link-bg-hover);
-    transform: translateY(-3px) scale(1.01); /* Slightly more pronounced effect */
-    box-shadow: 0 5px 10px var(--shadow-color-hover);
+    background-color: var(--link-bg-hover); /* Uses darker mint green */
+    transform: translateY(-3px) scale(1.01);
+    box-shadow: 0 5px 10px var(--shadow-color-hover); /* Uses slightly darker soft shadow */
 }
 
 /* Style for keyboard focus - important for accessibility */
@@ -123,8 +123,8 @@ body {
     outline: none; /* Remove default browser outline */
 }
 .link-button:focus-visible { /* Shows outline only when using keyboard */
-    outline: 2px solid var(--accent-color); /* Use accent color for focus */
+    outline: 2px solid var(--accent-color); /* Uses soft coral/orange for focus */
     outline-offset: 2px;
-    background-color: var(--link-bg-hover);
-    box-shadow: 0 5px 10px var(--shadow-color-hover);
+    background-color: var(--link-bg-hover); /* Matches hover background */
+    box-shadow: 0 5px 10px var(--shadow-color-hover); /* Matches hover shadow */
 }
