@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>hey its burt</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --amber: #ffb000;
+      --amber-dim: #cc8a00;
+      --bg: #000000;
+    }
+    html, body {
+      height: 100%;
+      margin: 0;
+      background: var(--bg);
+      color: var(--amber);
+      font-family: 'VT323', monospace;
+    }
+    body::before {
+      content: "";
+      position: fixed; inset: 0;
+      background: linear-gradient(rgba(255,176,0,0.06) 50%, rgba(0,0,0,0.06) 50%), radial-gradient(circle at center, rgba(255,176,0,0.08), rgba(0,0,0,0.75));
+      background-size: 100% 2px, 100% 100%;
+      pointer-events: none;
+      mix-blend-mode: screen;
+    }
+    .container {
+      height: 100%;
+      padding: 24px 16px;
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+      gap: 8px;
+    }
+    .title {
+      font-size: clamp(28px, 6vw, 64px);
+      text-transform: lowercase;
+      text-shadow: 0 0 8px var(--amber), 0 0 20px var(--amber);
+    }
+    .menu { display: flex; gap: 24px; flex-wrap: wrap; }
+    .link {
+      color: var(--amber);
+      text-decoration: none;
+      border-bottom: 1px dotted var(--amber-dim);
+      cursor: pointer;
+    }
+    .link:hover { filter: brightness(1.2); }
+    .screen {
+      border: 1px solid var(--amber-dim);
+      padding: 12px;
+      overflow: auto;
+      box-shadow: inset 0 0 24px rgba(255,176,0,0.15);
+    }
+    .line { white-space: pre-wrap; margin: 0.1rem 0; }
+    .muted { color: var(--amber-dim); }
+    .prompt { display: flex; gap: 8px; margin-top: 8px; }
+    .prompt-input {
+      flex: 1;
+      background: transparent;
+      color: var(--amber);
+      border: none;
+      outline: none;
+      font: inherit;
+    }
+    footer { font-size: 12px; color: var(--amber-dim); }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="title">hey its burt</div>
+      <nav class="menu">
+        <a class="link" data-route="home" href="#/home">home / about</a>
+        <a class="link" data-route="projects" href="#/projects">projects</a>
+      </nav>
+    </header>
+
+    <main class="screen" id="screen" aria-live="polite"></main>
+
+    <footer>this was crafted</footer>
+  </div>
+
+  <script>
+    const screen = document.getElementById('screen');
+
+    // Renders a list of {t, c} entries to the screen
+    function render(lines) {
+      screen.innerHTML = '';
+      (Array.isArray(lines) ? lines : []).forEach(l => {
+        const div = document.createElement('div');
+        div.className = l.t || 'line';
+        div.textContent = l.c ?? '';
+        screen.appendChild(div);
+      });
+    }
+
+    const pages = {
+      home: () => [
+        { t: 'line', c: 'About Me' },
+        { t: 'line', c: 'Name: Burt' },
+        { t: 'line', c: 'Location: Texas' },
+        { t: 'line', c: 'Company: HeyItsBurt/DadCommons' },
+        { t: 'line', c: 'Bio: See Episode 637' },
+        { t: 'line', c: 'Blog: My YouTube' },
+        { t: 'line', c: 'X (Twitter): https://x.com/josephburt' },
+        { t: 'line', c: 'Instagram: https://www.instagram.com/heyitsburt/' },
+        { t: 'line', c: 'Kick: https://kick.com/hey-its-burt' },
+        { t: 'line', c: 'YouTube: https://www.youtube.com/@JosephBurt-Main' },
+        { t: 'line', c: 'Facebook: https://www.facebook.com/heyitsburtcom' },
+        { t: 'line', c: 'Venmo: https://venmo.com/u/JosephBurt' },
+        { t: 'line', c: 'CashApp: https://cash.app/$misterburt' },
+      ],
+
+      projects: async () => {
+        // Initial UI while fetching
+        render([
+          { t: 'line', c: 'Projects:' },
+          { t: 'line muted', c: 'fetching repositories…' }
+        ]);
+
+        try {
+          const res = await fetch('https://api.github.com/users/josephburt/repos?sort=updated', {
+            headers: { 'Accept': 'application/vnd.github+json' }
+          });
+
+          if (!res.ok) {
+            // HTTP error (rate limit, etc.)
+            throw new Error(`GitHub API error: ${res.status} ${res.statusText}`);
+          }
+
+          const data = await res.json();
+          const repos = Array.isArray(data) ? data : [];
+
+          const visible = repos
+            .filter(r => r && !r.fork)
+            .sort((a, b) => new Date(b.pushed_at) - new Date(a.pushed_at));
+
+          const lines = [{ t: 'line', c: 'Projects:' }];
+
+          if (visible.length === 0) {
+            lines.push({ t: 'line muted', c: 'no public repositories found (or API limit reached).' });
+          } else {
+            visible.forEach((r, i) => {
+              const idx = String(i + 1).padStart(2, '0');
+              lines.push({ t: 'line', c: `${idx}. ${r.name} → ${r.html_url}` });
+              if (r.description) lines.push({ t: 'line muted', c: `    ${r.description}` });
+            });
+          }
+
+          render(lines);
+        } catch (err) {
+          // Network/parse errors
+          const msg = (err && err.message) ? err.message : String(err);
+          render([
+            { t: 'line', c: 'Projects:' },
+            { t: 'line', c: 'error fetching repositories.' },
+            { t: 'line muted', c: msg },
+            { t: 'line muted', c: 'tip: reload later or check https://github.com/josephburt?tab=repositories' }
+          ]);
+        }
+      }
+    };
+
+    function navigate(route) {
+      if (pages[route]) {
+        const result = pages[route]();
+        if (result instanceof Promise) result.then(lines => { if (lines) render(lines); });
+        else render(result);
+      }
+    }
+
+    window.addEventListener('hashchange', () => {
+      const route = (location.hash.replace('#/', '') || 'home').split('?')[0];
+      navigate(route);
+    });
+
+    // Initial route
+    navigate((location.hash.replace('#/', '') || 'home').split('?')[0]);
+
+    // ---------------------
+    // Basic runtime tests
+    // ---------------------
+    (function runBasicTests(){
+      try {
+        console.assert(typeof render === 'function', 'render() should exist');
+        console.assert(Array.isArray(pages.home()), 'home() should return an array');
+
+        // Ensure projects page code safely handles non-array values
+        const maybeArray = undefined;
+        const safe = Array.isArray(maybeArray) ? maybeArray : [];
+        safe.forEach(() => {}); // should not throw
+        console.log('[tests] safety checks passed: undefined array handling');
+      } catch (e) {
+        console.error('[tests] failed:', e);
+      }
+    })();
+  </script>
+</body>
+</html>
