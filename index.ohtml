@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hey Its Burt</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/x-icon" href="favicon.ico"> <!-- Optional: Add a favicon -->
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="terminal-prompt">></div>
+            <ul>
+                <li><a href="#about">about_me.sh</a></li>
+                <li><a href="#social">social_links.md</a></li>
+                <li><a href="#projects">github_projects.json</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="terminal-window">
+        <div class="terminal-bar">
+            <span class="terminal-title">bash@heyitsburt:~/portfolio</span>
+            <div class="terminal-buttons">
+                <span class="terminal-btn close"></span>
+                <span class="terminal-btn minimize"></span>
+                <span class="terminal-btn maximize"></span>
+            </div>
+        </div>
+        <div class="terminal-content">
+            <section id="about" class="terminal-section">
+                <p class="terminal-line">_burt_@server:~/$ cat about_me.sh</p>
+                <h1 class="terminal-heading">Hey, I'm Burt!</h1>
+                <div class="about-content">
+                    <div class="profile-pic-container">
+                        <img src="profile.jpg" alt="Joseph Burt" class="profile-pic"> <!-- Add your profile image here -->
+                    </div>
+                    <div class="about-text">
+                        <p class="terminal-paragraph">
+                            Welcome to my digital terminal! I'm a passionate developer, creator, and enthusiast always
+                            exploring the intersection of technology and creativity. Whether it's crafting robust code,
+                            building engaging online communities, or just diving into the latest tech, I'm constantly
+                            driven by a desire to learn and innovate. This space serves as a central hub for my work,
+                            thoughts, and digital presence. Explore my projects and connect with me across various platforms!
+                        </p>
+                        <p class="terminal-paragraph">
+                            Feel free to type 'help' for more commands (just kidding, but imagine!).
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="social" class="terminal-section">
+                <p class="terminal-line">_burt_@server:~/$ ls -l social_links.md</p>
+                <h1 class="terminal-heading">Connect with Me:</h1>
+                <div class="social-links">
+                    <a href="https://x.com/josephburt" target="_blank" class="social-btn"><span class="icon">𝕏</span> X (Twitter)</a>
+                    <a href="https://www.instagram.com/heyitsburt/" target="_blank" class="social-btn"><span class="icon">📸</span> Instagram</a>
+                    <a href="https://kick.com/hey-its-burt" target="_blank" class="social-btn"><span class="icon">🟢</span> Kick</a>
+                    <a href="https://www.youtube.com/@JosephBurt-Main" target="_blank" class="social-btn"><span class="icon">▶️</span> YouTube</a>
+                    <a href="https://www.facebook.com/heyitsburtcom" target="_blank" class="social-btn"><span class="icon">📘</span> Facebook</a>
+                    <a href="https://venmo.com/u/JosephBurt" target="_blank" class="social-btn"><span class="icon">💰</span> Venmo</a>
+                    <a href="https://cash.app/$misterburt" target="_blank" class="social-btn"><span class="icon">💵</span> CashApp</a>
+                </div>
+            </section>
+
+            <section id="projects" class="terminal-section">
+                <p class="terminal-line">_burt_@server:~/$ cat github_projects.json</p>
+                <h1 class="terminal-heading">My GitHub Projects:</h1>
+                <div id="project-list" class="project-list-grid">
+                    <p class="terminal-line blinking-cursor">Fetching latest projects...</p>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <footer>
+        <p class="terminal-line">_burt_@server:~/$ echo "© 2023 Joseph Burt"</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
