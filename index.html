@@ -230,26 +230,35 @@
     </div>
 
     <script>
+        // Cache DOM elements
+        const pageContents = document.querySelectorAll('.page-content');
+        const navLinks = document.querySelectorAll('.links a');
+        const homeContent = document.getElementById('home-content');
+        const navHome = document.getElementById('nav-home');
+        const subtitle = document.getElementById('subtitle');
+        const socialsContent = document.getElementById('socials-content');
+        const navSocials = document.getElementById('nav-socials');
+
         function showPage(page) {
             // Hide all page content
-            document.querySelectorAll('.page-content').forEach(content => {
+            pageContents.forEach(content => {
                 content.classList.remove('active');
             });
             
             // Remove active class from all nav links
-            document.querySelectorAll('.links a').forEach(link => {
+            navLinks.forEach(link => {
                 link.classList.remove('active');
             });
             
             // Show selected page content
             if (page === 'home') {
-                document.getElementById('home-content').classList.add('active');
-                document.getElementById('nav-home').classList.add('active');
-                document.getElementById('subtitle').textContent = 'About Me';
+                homeContent.classList.add('active');
+                navHome.classList.add('active');
+                subtitle.textContent = 'About Me';
             } else if (page === 'socials') {
-                document.getElementById('socials-content').classList.add('active');
-                document.getElementById('nav-socials').classList.add('active');
-                document.getElementById('subtitle').textContent = 'Connect With Me';
+                socialsContent.classList.add('active');
+                navSocials.classList.add('active');
+                subtitle.textContent = 'Connect With Me';
             }
         }
     </script>
