@@ -67,7 +67,7 @@
             margin-bottom: 30px;
         }
 
-        .links a {
+        .nav-item {
             color: #ffcc66;
             text-decoration: none;
             padding: 10px 20px;
@@ -76,18 +76,25 @@
             transition: all 0.3s ease;
             background: rgba(139, 111, 71, 0.2);
             cursor: pointer;
+            font-family: inherit;
+            font-size: 1rem;
         }
 
-        .links a:hover {
+        .nav-item:hover {
             background: rgba(139, 111, 71, 0.4);
             border-color: #ffcc66;
             transform: translateY(-2px);
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
         }
 
-        .links a.active {
+        .nav-item.active {
             background: rgba(139, 111, 71, 0.5);
             border-color: #ffcc66;
+        }
+
+        .nav-item:focus-visible {
+            outline: 2px solid #ffcc66;
+            outline-offset: 2px;
         }
 
         .page-content {
@@ -142,9 +149,9 @@
         <p class="subtitle" id="subtitle">About Me</p>
         
         <div class="links">
-            <a onclick="showPage('home')" id="nav-home" class="active">Home</a>
-            <a onclick="showPage('socials')" id="nav-socials">Socials</a>
-            <a href="https://github.com/josephburt" target="_blank">GitHub</a>
+            <button type="button" onclick="showPage('home')" id="nav-home" class="nav-item active">Home</button>
+            <button type="button" onclick="showPage('socials')" id="nav-socials" class="nav-item">Socials</button>
+            <a href="https://github.com/josephburt" target="_blank" class="nav-item">GitHub</a>
         </div>
 
         <!-- Home/About Page -->
@@ -237,7 +244,7 @@
             });
             
             // Remove active class from all nav links
-            document.querySelectorAll('.links a').forEach(link => {
+            document.querySelectorAll('.nav-item').forEach(link => {
                 link.classList.remove('active');
             });
             
