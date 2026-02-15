@@ -231,34 +231,45 @@
 
     <script>
         // Cache DOM elements
-        const pageContents = document.querySelectorAll('.page-content');
-        const navLinks = document.querySelectorAll('.links a');
         const homeContent = document.getElementById('home-content');
         const navHome = document.getElementById('nav-home');
         const subtitle = document.getElementById('subtitle');
         const socialsContent = document.getElementById('socials-content');
         const navSocials = document.getElementById('nav-socials');
 
+        const pageConfig = {
+            home: {
+                content: homeContent,
+                nav: navHome,
+                subtitleText: 'About Me'
+            },
+            socials: {
+                content: socialsContent,
+                nav: navSocials,
+                subtitleText: 'Connect With Me'
+            }
+        };
+
+        let activePageId = 'home';
+
         function showPage(page) {
-            // Hide all page content
-            pageContents.forEach(content => {
-                content.classList.remove('active');
-            });
-            
-            // Remove active class from all nav links
-            navLinks.forEach(link => {
-                link.classList.remove('active');
-            });
-            
-            // Show selected page content
-            if (page === 'home') {
-                homeContent.classList.add('active');
-                navHome.classList.add('active');
-                subtitle.textContent = 'About Me';
-            } else if (page === 'socials') {
-                socialsContent.classList.add('active');
-                navSocials.classList.add('active');
-                subtitle.textContent = 'Connect With Me';
+            // Optimization: do nothing if already active
+            if (page === activePageId) return;
+
+            // Hide currently active page content and nav link
+            const currentConfig = pageConfig[activePageId];
+            if (currentConfig) {
+                currentConfig.content.classList.remove('active');
+                currentConfig.nav.classList.remove('active');
+            }
+
+            // Show selected page content and nav link
+            const newConfig = pageConfig[page];
+            if (newConfig) {
+                newConfig.content.classList.add('active');
+                newConfig.nav.classList.add('active');
+                subtitle.textContent = newConfig.subtitleText;
+                activePageId = page;
             }
         }
     </script>
