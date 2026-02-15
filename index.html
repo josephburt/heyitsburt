@@ -239,27 +239,36 @@
         const socialsContent = document.getElementById('socials-content');
         const navSocials = document.getElementById('nav-socials');
 
+        // Track active elements
+        let activeContent = homeContent;
+        let activeNav = navHome;
+
         function showPage(page) {
-            // Hide all page content
-            pageContents.forEach(content => {
-                content.classList.remove('active');
-            });
+            // Remove active class from currently active elements
+            if (activeContent) activeContent.classList.remove('active');
+            if (activeNav) activeNav.classList.remove('active');
             
-            // Remove active class from all nav links
-            navLinks.forEach(link => {
-                link.classList.remove('active');
-            });
+            let newActiveContent = null;
+            let newActiveNav = null;
             
-            // Show selected page content
+            // Determine new active elements
             if (page === 'home') {
-                homeContent.classList.add('active');
-                navHome.classList.add('active');
+                newActiveContent = homeContent;
+                newActiveNav = navHome;
                 subtitle.textContent = 'About Me';
             } else if (page === 'socials') {
-                socialsContent.classList.add('active');
-                navSocials.classList.add('active');
+                newActiveContent = socialsContent;
+                newActiveNav = navSocials;
                 subtitle.textContent = 'Connect With Me';
             }
+
+            // Update references
+            activeContent = newActiveContent;
+            activeNav = newActiveNav;
+
+            // Add active class to new active elements
+            if (activeContent) activeContent.classList.add('active');
+            if (activeNav) activeNav.classList.add('active');
         }
     </script>
 </body>
