@@ -142,8 +142,8 @@
         <p class="subtitle" id="subtitle">About Me</p>
         
         <div class="links">
-            <a onclick="showPage('home')" id="nav-home" class="active">Home</a>
-            <a onclick="showPage('socials')" id="nav-socials">Socials</a>
+            <a id="nav-home" class="active">Home</a>
+            <a id="nav-socials">Socials</a>
             <a href="https://github.com/josephburt" target="_blank">GitHub</a>
         </div>
 
@@ -238,6 +238,10 @@
         const subtitle = document.getElementById('subtitle');
         const socialsContent = document.getElementById('socials-content');
         const navSocials = document.getElementById('nav-socials');
+
+        // Add event listeners
+        navHome.addEventListener('click', () => showPage('home'));
+        navSocials.addEventListener('click', () => showPage('socials'));
 
         function showPage(page) {
             // Hide all page content
