@@ -231,34 +231,38 @@
 
     <script>
         // Cache DOM elements
-        const pageContents = document.querySelectorAll('.page-content');
-        const navLinks = document.querySelectorAll('.links a');
         const homeContent = document.getElementById('home-content');
         const navHome = document.getElementById('nav-home');
         const subtitle = document.getElementById('subtitle');
         const socialsContent = document.getElementById('socials-content');
         const navSocials = document.getElementById('nav-socials');
 
+        // Track current active elements for O(1) complexity
+        let currentActivePage = homeContent;
+        let currentActiveNavLink = navHome;
+
         function showPage(page) {
-            // Hide all page content
-            pageContents.forEach(content => {
-                content.classList.remove('active');
-            });
-            
-            // Remove active class from all nav links
-            navLinks.forEach(link => {
-                link.classList.remove('active');
-            });
+            // Hide current active page and remove active class from current nav link
+            if (currentActivePage) {
+                currentActivePage.classList.remove('active');
+            }
+            if (currentActiveNavLink) {
+                currentActiveNavLink.classList.remove('active');
+            }
             
             // Show selected page content
             if (page === 'home') {
                 homeContent.classList.add('active');
                 navHome.classList.add('active');
                 subtitle.textContent = 'About Me';
+                currentActivePage = homeContent;
+                currentActiveNavLink = navHome;
             } else if (page === 'socials') {
                 socialsContent.classList.add('active');
                 navSocials.classList.add('active');
                 subtitle.textContent = 'Connect With Me';
+                currentActivePage = socialsContent;
+                currentActiveNavLink = navSocials;
             }
         }
     </script>
