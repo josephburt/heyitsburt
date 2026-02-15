@@ -29,12 +29,19 @@
 
         .container {
             max-width: 800px;
-            background: rgba(30, 20, 15, 0.85);
-            backdrop-filter: blur(10px);
+            background: rgba(30, 20, 15, 0.95);
             border: 2px solid #8b6f47;
             border-radius: 8px;
             padding: 40px;
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+        }
+
+        @media (prefers-reduced-transparency: no-preference) {
+            .container {
+                background: rgba(30, 20, 15, 0.85);
+                backdrop-filter: blur(10px);
+                -webkit-backdrop-filter: blur(10px);
+            }
         }
 
         h1 {
