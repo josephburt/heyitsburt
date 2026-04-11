@@ -239,25 +239,27 @@
         const socialsContent = document.getElementById('socials-content');
         const navSocials = document.getElementById('nav-socials');
 
+        let activeNavLink = navHome;
+
         function showPage(page) {
             // Hide all page content
             pageContents.forEach(content => {
                 content.classList.remove('active');
             });
             
-            // Remove active class from all nav links
-            navLinks.forEach(link => {
-                link.classList.remove('active');
-            });
+            // Remove active class from active nav link
+            activeNavLink.classList.remove('active');
             
             // Show selected page content
             if (page === 'home') {
                 homeContent.classList.add('active');
                 navHome.classList.add('active');
+                activeNavLink = navHome;
                 subtitle.textContent = 'About Me';
             } else if (page === 'socials') {
                 socialsContent.classList.add('active');
                 navSocials.classList.add('active');
+                activeNavLink = navSocials;
                 subtitle.textContent = 'Connect With Me';
             }
         }
