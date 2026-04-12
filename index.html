@@ -1,266 +1,786 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hey Its Burt</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hey It's Burt</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400;500;600&family=Barlow+Condensed:wght@600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-        body {
-            font-family: 'Courier New', monospace;
-            min-height: 100vh;
-            background-image: url('images/BKGND.webp');
-            background-color: #2d1f16;
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
-            background-repeat: no-repeat;
-            color: #f5e6d3;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-        }
+  :root {
+    --bg: #F5F2ED;
+    --surface: #EDE9E2;
+    --card: #FFFFFF;
+    --card-border: #DDD8CF;
+    --orange: #E84800;
+    --orange-dim: #C43D00;
+    --cyan: #0077CC;
+    --text: #1A1714;
+    --muted: #6B6560;
+    --faint: #E5E0D8;
+  }
 
-        .container {
-            max-width: 800px;
-            background: rgba(30, 20, 15, 0.85);
-            backdrop-filter: blur(10px);
-            border: 2px solid #8b6f47;
-            border-radius: 8px;
-            padding: 40px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
-        }
+  html { scroll-behavior: smooth; }
 
-        h1 {
-            color: #ffcc66;
-            font-size: 2.5em;
-            margin-bottom: 10px;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
-        }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Barlow', sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
 
-        .subtitle {
-            color: #cc9966;
-            font-size: 1.2em;
-            margin-bottom: 30px;
-            font-style: italic;
-        }
+  /* ---- NAV ---- */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.25rem 2.5rem;
+    background: rgba(245,242,237,0.88);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(255,85,0,0.12);
+  }
 
-        .content {
-            line-height: 1.8;
-            margin-bottom: 30px;
-        }
+  .nav-logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.5rem;
+    letter-spacing: 0.05em;
+    color: var(--text);
+    text-decoration: none;
+  }
 
-        .content p {
-            margin-bottom: 15px;
-        }
+  .nav-logo span { color: var(--orange); }
 
-        .links {
-            display: flex;
-            gap: 20px;
-            flex-wrap: wrap;
-            margin-bottom: 30px;
-        }
+  .nav-links {
+    display: flex;
+    gap: 1.5rem;
+    list-style: none;
+  }
 
-        .links a {
-            color: #ffcc66;
-            text-decoration: none;
-            padding: 10px 20px;
-            border: 1px solid #8b6f47;
-            border-radius: 4px;
-            transition: all 0.3s ease;
-            background: rgba(139, 111, 71, 0.2);
-            cursor: pointer;
-        }
+  .nav-links a {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--muted);
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    transition: color 0.2s;
+  }
 
-        .links a:hover {
-            background: rgba(139, 111, 71, 0.4);
-            border-color: #ffcc66;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-        }
+  .nav-links a:hover { color: var(--orange); }
 
-        .links a.active {
-            background: rgba(139, 111, 71, 0.5);
-            border-color: #ffcc66;
-        }
+  /* ---- HERO ---- */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 7rem 2.5rem 4rem;
+    position: relative;
+    overflow: hidden;
+  }
 
-        .page-content {
-            display: none;
-        }
+  .hero-grid-bg {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(232,72,0,0.07) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(232,72,0,0.07) 1px, transparent 1px);
+    background-size: 60px 60px;
+    mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 20%, transparent 70%);
+  }
 
-        .page-content.active {
-            display: block;
-        }
+  .hero-glow {
+    position: absolute;
+    top: 30%;
+    left: -10%;
+    width: 50vw;
+    height: 50vw;
+    background: radial-gradient(circle, rgba(232,72,0,0.08) 0%, transparent 60%);
+    pointer-events: none;
+  }
 
-        .social-links {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-        }
+  .hero-eyebrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--orange);
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    margin-bottom: 1.25rem;
+    opacity: 0;
+    animation: fadeUp 0.6s ease forwards 0.2s;
+  }
 
-        .social-link {
-            display: flex;
-            align-items: center;
-            padding: 15px 20px;
-            background: rgba(139, 111, 71, 0.2);
-            border: 1px solid #8b6f47;
-            border-radius: 4px;
-            text-decoration: none;
-            color: #f5e6d3;
-            transition: all 0.3s ease;
-        }
+  .hero-headline {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(5rem, 14vw, 13rem);
+    line-height: 0.9;
+    letter-spacing: 0.02em;
+    color: var(--text);
+    margin-bottom: 0.5rem;
+    opacity: 0;
+    animation: fadeUp 0.7s ease forwards 0.4s;
+  }
 
-        .social-link:hover {
-            background: rgba(139, 111, 71, 0.4);
-            border-color: #ffcc66;
-            transform: translateX(10px);
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-        }
+  .hero-headline .accent { color: var(--orange); }
 
-        .social-name {
-            font-weight: bold;
-            color: #ffcc66;
-            min-width: 180px;
-            font-size: 1.1em;
-        }
+  .hero-sub {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: clamp(1.1rem, 2.5vw, 1.6rem);
+    font-weight: 600;
+    color: var(--muted);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 2rem;
+    opacity: 0;
+    animation: fadeUp 0.7s ease forwards 0.6s;
+  }
 
-        .social-handle {
-            color: #cc9966;
-            font-size: 0.9em;
-        }
-    </style>
+  .hero-bio {
+    max-width: 560px;
+    font-size: 1.05rem;
+    color: #4A4540;
+    line-height: 1.75;
+    margin-bottom: 2.5rem;
+    opacity: 0;
+    animation: fadeUp 0.7s ease forwards 0.8s;
+  }
+
+  .hero-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 3rem;
+    opacity: 0;
+    animation: fadeUp 0.7s ease forwards 1s;
+  }
+
+  .tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--muted);
+    border: 1px solid var(--card-border);
+    border-radius: 2px;
+    padding: 0.3rem 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    transition: border-color 0.2s, color 0.2s;
+  }
+
+  .tag:hover { border-color: var(--orange); color: var(--orange); }
+
+  .hero-cta {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    opacity: 0;
+    animation: fadeUp 0.7s ease forwards 1.1s;
+  }
+
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: var(--orange);
+    color: #fff;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    padding: 0.75rem 1.75rem;
+    text-decoration: none;
+    border-radius: 2px;
+    transition: background 0.2s, transform 0.15s;
+  }
+
+  .btn-primary:hover { background: var(--orange-dim); transform: translateY(-1px); }
+
+  .btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: transparent;
+    color: var(--text);
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    padding: 0.75rem 1.75rem;
+    border: 1px solid var(--card-border);
+    text-decoration: none;
+    border-radius: 2px;
+    transition: border-color 0.2s, transform 0.15s;
+  }
+
+  .btn-secondary:hover { border-color: var(--orange); transform: translateY(-1px); }
+
+  .hero-location {
+    position: absolute;
+    bottom: 3rem;
+    right: 2.5rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--muted);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    writing-mode: vertical-rl;
+    opacity: 0;
+    animation: fadeIn 1s ease forwards 1.5s;
+  }
+
+  .hero-location::before {
+    content: '';
+    display: block;
+    width: 1px;
+    height: 40px;
+    background: var(--orange);
+    margin: 0 auto 0.75rem;
+  }
+
+  /* ---- SECTION BASE ---- */
+  section {
+    padding: 6rem 2.5rem;
+  }
+
+  .section-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--orange);
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    margin-bottom: 1rem;
+  }
+
+  .section-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(2.5rem, 5vw, 4.5rem);
+    line-height: 1;
+    letter-spacing: 0.03em;
+    color: var(--text);
+    margin-bottom: 1rem;
+  }
+
+  .section-divider {
+    width: 60px;
+    height: 3px;
+    background: var(--orange);
+    margin-bottom: 3rem;
+    border-radius: 1px;
+  }
+
+  /* ---- TOPICS GRID ---- */
+  .topics-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.25rem;
+    margin-top: 3rem;
+  }
+
+  .topic-card {
+    background: var(--card);
+    border: 1px solid var(--card-border);
+    border-radius: 4px;
+    padding: 1.75rem;
+    position: relative;
+    overflow: hidden;
+    transition: border-color 0.25s, transform 0.2s;
+    cursor: default;
+  }
+
+  .topic-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 3px;
+    height: 100%;
+    background: var(--card-accent, var(--orange));
+    transform: scaleY(0);
+    transform-origin: bottom;
+    transition: transform 0.3s ease;
+  }
+
+  .topic-card:hover {
+    border-color: var(--card-accent, var(--orange));
+    transform: translateY(-3px);
+  }
+
+  .topic-card:hover::before { transform: scaleY(1); }
+
+  .topic-card.cyan-accent { --card-accent: var(--cyan); }
+  .topic-card.green-accent { --card-accent: #44CC88; }
+  .topic-card.purple-accent { --card-accent: #9966FF; }
+  .topic-card.amber-accent { --card-accent: #FFAA00; }
+  .topic-card.red-accent { --card-accent: #FF4466; }
+
+  .topic-icon {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    display: block;
+    line-height: 1;
+  }
+
+  .topic-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 1.25rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text);
+    margin-bottom: 0.5rem;
+  }
+
+  .topic-desc {
+    font-size: 0.9rem;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+
+  .topic-num {
+    position: absolute;
+    top: 1.25rem;
+    right: 1.25rem;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 3.5rem;
+    color: rgba(255,255,255,0.03);
+    line-height: 1;
+    pointer-events: none;
+  }
+
+  /* ---- SIGNAL BAR ---- */
+  .signal-bar {
+    background: var(--orange);
+    border-top: none;
+    border-bottom: none;
+    padding: 2.5rem 2.5rem;
+    overflow: hidden;
+  }
+
+  .signal-track {
+    display: flex;
+    gap: 4rem;
+    animation: scroll-left 30s linear infinite;
+    white-space: nowrap;
+    width: max-content;
+  }
+
+  .signal-item {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.4rem;
+    letter-spacing: 0.1em;
+    color: rgba(255,255,255,0.75);
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .signal-item .dot {
+    width: 5px;
+    height: 5px;
+    background: rgba(255,255,255,0.5);
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  /* ---- CONNECT ---- */
+  .connect-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1.25rem;
+    margin-top: 3rem;
+  }
+
+  .social-card {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+    background: var(--card);
+    border: 1px solid var(--card-border);
+    border-radius: 4px;
+    padding: 1.5rem;
+    text-decoration: none;
+    transition: border-color 0.2s, transform 0.2s;
+  }
+
+  .social-card:hover {
+    border-color: var(--orange);
+    transform: translateY(-2px);
+  }
+
+  .social-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 4px;
+    background: var(--faint);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    font-size: 1.3rem;
+  }
+
+  .social-info { min-width: 0; }
+
+  .social-name {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--text);
+    margin-bottom: 0.15rem;
+  }
+
+  .social-handle {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--muted);
+  }
+
+  .social-arrow {
+    margin-left: auto;
+    color: var(--muted);
+    font-size: 1rem;
+    flex-shrink: 0;
+    transition: color 0.2s, transform 0.2s;
+  }
+
+  .social-card:hover .social-arrow {
+    color: var(--orange);
+    transform: translate(2px, -2px);
+  }
+
+  .callout {
+    background: #1A1714;
+    padding: 3rem 2.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+    flex-wrap: wrap;
+  }
+
+  .callout-text {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(1.8rem, 3.5vw, 3rem);
+    color: #fff;
+    letter-spacing: 0.04em;
+    line-height: 1.1;
+  }
+
+  .callout-text span {
+    display: block;
+    font-family: 'Barlow', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 400;
+    letter-spacing: 0;
+    opacity: 0.6;
+    margin-top: 0.25rem;
+  }
+
+  .callout a {
+    display: inline-block;
+    background: var(--orange);
+    color: #fff;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    padding: 0.75rem 1.75rem;
+    text-decoration: none;
+    border-radius: 2px;
+    transition: opacity 0.2s;
+    white-space: nowrap;
+  }
+
+  .callout a:hover { opacity: 0.88; }
+
+  /* ---- FOOTER ---- */
+  footer {
+    padding: 2.5rem;
+    border-top: 1px solid var(--card-border);
+    background: var(--surface);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  .footer-logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.25rem;
+    letter-spacing: 0.05em;
+    color: var(--text);
+  }
+
+  .footer-logo span { color: var(--orange); }
+
+  footer p {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--muted);
+    letter-spacing: 0.08em;
+  }
+
+  footer .footer-links {
+    display: flex;
+    gap: 1.25rem;
+  }
+
+  footer .footer-links a {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--muted);
+    text-decoration: none;
+    letter-spacing: 0.08em;
+    transition: color 0.2s;
+  }
+
+  footer .footer-links a:hover { color: var(--orange); }
+
+  /* ---- KEYFRAMES ---- */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+  }
+
+  @keyframes scroll-left {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+  }
+
+  /* ---- RESPONSIVE ---- */
+  @media (max-width: 640px) {
+    nav { padding: 1rem 1.25rem; }
+    .nav-links { display: none; }
+    section { padding: 4rem 1.25rem; }
+    .hero { padding: 6rem 1.25rem 3rem; }
+    .hero-location { display: none; }
+    .signal-bar { padding: 1.75rem 1.25rem; }
+    .callout { padding: 2rem 1.25rem; }
+    footer { padding: 1.75rem 1.25rem; }
+  }
+</style>
 </head>
 <body>
-    <div class="container">
-        <h1>Hey Its Burt</h1>
-        <p class="subtitle" id="subtitle">About Me</p>
-        
-        <div class="links">
-            <a onclick="showPage('home')" id="nav-home" class="active">Home</a>
-            <a onclick="showPage('socials')" id="nav-socials">Socials</a>
-            <a href="https://github.com/josephburt" target="_blank">GitHub</a>
-        </div>
 
-        <!-- Home/About Page -->
-        <div id="home-content" class="page-content active">
-            <div class="content">
-                <p>
-                    I'm a technology enthusiast passionate about the systems that connect us. 
-                    My interests are focused on cloud infrastructure, virtualization, and radio communication.
-                </p>
-                <p>
-                    Professionally, I'm leveling up my skills in cloud computing and am always 
-                    studying for new certifications. I'm excited to master cloud architecture to 
-                    build and manage modern, scalable, and efficient solutions.
-                </p>
-                <p>
-                    At home, I get hands-on experience running my own home lab. I use it to 
-                    experiment with self-hosting and test virtualization concepts in a practical 
-                    environment. This 'tinkerer's mindset' helps me bridge theory and real-world 
-                    application.
-                </p>
-                <p>
-                    When I'm not in front of a server, I'm on the air as an amateur radio operator. 
-                    This hobby combines my love for electronics with the magic of global communication.
-                </p>
-                <p>
-                    I'm driven by a desire to understand systems from the ground up—from the 
-                    physical layer to the cloud—and am always looking to learn and connect with others.
-                </p>
-            </div>
-        </div>
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">Hey It's <span>Burt</span></a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#topics">Topics</a></li>
+    <li><a href="#connect">Connect</a></li>
+  </ul>
+</nav>
 
-        <!-- Socials Page -->
-        <div id="socials-content" class="page-content">
-            <div class="content">
-                <p>
-                    Find me across the web! I'm active on various platforms sharing 
-                    content about technology, cloud computing, and amateur radio.
-                </p>
-            </div>
+<!-- HERO -->
+<section class="hero" id="about">
+  <div class="hero-grid-bg"></div>
+  <div class="hero-glow"></div>
 
-            <div class="social-links">
-                <a href="https://x.com/josephburt" target="_blank" class="social-link">
-                    <span class="social-name">X (Twitter)</span>
-                    <span class="social-handle">@josephburt</span>
-                </a>
+  <p class="hero-eyebrow">// Palmer, Texas &nbsp;·&nbsp; Online Everywhere</p>
 
-                <a href="https://www.instagram.com/heyitsburt/" target="_blank" class="social-link">
-                    <span class="social-name">Instagram</span>
-                    <span class="social-handle">@heyitsburt</span>
-                </a>
+  <h1 class="hero-headline">
+    HEY.<br>IT'S<br><span class="accent">BURT.</span>
+  </h1>
 
-                <a href="https://www.facebook.com/heyitsburtcom" target="_blank" class="social-link">
-                    <span class="social-name">Facebook</span>
-                    <span class="social-handle">@heyitsburtcom</span>
-                </a>
+  <p class="hero-sub">Builder &middot; Tinkerer &middot; Signal Chaser &middot; Capitalist</p>
 
-                <a href="https://www.linkedin.com/in/heyitsburt/" target="_blank" class="social-link">
-                    <span class="social-name">LinkedIn</span>
-                    <span class="social-handle">in/heyitsburt</span>
-                </a>
+  <p class="hero-bio">
+    I break things to understand them, build things to prove I can, and share
+    everything along the way. From servers in my garage to signals in the air —
+    if it runs on power and curiosity, I'm in.
+  </p>
 
-                <a href="https://kick.com/hey-its-burt" target="_blank" class="social-link">
-                    <span class="social-name">Kick</span>
-                    <span class="social-handle">hey-its-burt</span>
-                </a>
+  <div class="hero-tags">
+    <span class="tag">Home Lab</span>
+    <span class="tag">Self-Hosting</span>
+    <span class="tag">AI &amp; Vibe-Coding</span>
+    <span class="tag">No-License Radio</span>
+    <span class="tag">SBC &amp; Single-Board</span>
+    <span class="tag">Business &amp; Capitalism</span>
+    <span class="tag">Rangers Baseball</span>
+    <span class="tag">Dallas Stars</span>
+    <span class="tag">F1 Racing</span>
+    <span class="tag">Texas</span>
+  </div>
 
-                <a href="https://www.youtube.com/@HeyItsBurt-Main" target="_blank" class="social-link">
-                    <span class="social-name">YouTube (Main)</span>
-                    <span class="social-handle">@HeyItsBurt-Main</span>
-                </a>
+  <div class="hero-cta">
+    <a href="#connect" class="btn-primary">Find Me Online ↓</a>
+    <a href="https://github.com/josephburt" target="_blank" class="btn-secondary">GitHub</a>
+  </div>
 
-                <a href="https://www.youtube.com/@heyitsburt-shorts" target="_blank" class="social-link">
-                    <span class="social-name">YouTube (Shorts)</span>
-                    <span class="social-handle">@heyitsburt-shorts</span>
-                </a>
+  <div class="hero-location">Palmer · TX · 75152</div>
+</section>
 
-                <a href="https://www.youtube.com/@heyitsburt-live" target="_blank" class="social-link">
-                    <span class="social-name">YouTube (Live)</span>
-                    <span class="social-handle">@heyitsburt-live</span>
-                </a>
-            </div>
-        </div>
+<!-- SCROLLING SIGNAL BAR -->
+<div class="signal-bar">
+  <div class="signal-track">
+    <span class="signal-item"><span class="dot"></span> Home Lab</span>
+    <span class="signal-item"><span class="dot"></span> Self-Hosting</span>
+    <span class="signal-item"><span class="dot"></span> Vibe-Coding</span>
+    <span class="signal-item"><span class="dot"></span> AI &amp; LLMs</span>
+    <span class="signal-item"><span class="dot"></span> No-License Radio</span>
+    <span class="signal-item"><span class="dot"></span> Raspberry Pi</span>
+    <span class="signal-item"><span class="dot"></span> Business</span>
+    <span class="signal-item"><span class="dot"></span> Rangers Baseball</span>
+    <span class="signal-item"><span class="dot"></span> Dallas Stars</span>
+    <span class="signal-item"><span class="dot"></span> F1 Racing</span>
+    <span class="signal-item"><span class="dot"></span> SBC Builds</span>
+    <span class="signal-item"><span class="dot"></span> YouTube</span>
+    <!-- duplicate for seamless loop -->
+    <span class="signal-item"><span class="dot"></span> Home Lab</span>
+    <span class="signal-item"><span class="dot"></span> Self-Hosting</span>
+    <span class="signal-item"><span class="dot"></span> Vibe-Coding</span>
+    <span class="signal-item"><span class="dot"></span> AI &amp; LLMs</span>
+    <span class="signal-item"><span class="dot"></span> No-License Radio</span>
+    <span class="signal-item"><span class="dot"></span> Raspberry Pi</span>
+    <span class="signal-item"><span class="dot"></span> Business</span>
+    <span class="signal-item"><span class="dot"></span> Rangers Baseball</span>
+    <span class="signal-item"><span class="dot"></span> Dallas Stars</span>
+    <span class="signal-item"><span class="dot"></span> F1 Racing</span>
+    <span class="signal-item"><span class="dot"></span> SBC Builds</span>
+    <span class="signal-item"><span class="dot"></span> YouTube</span>
+  </div>
+</div>
+
+<!-- TOPICS -->
+<section id="topics">
+  <p class="section-label">// What I'm Into</p>
+  <h2 class="section-title">Topics &amp; Interests</h2>
+  <div class="section-divider"></div>
+
+  <div class="topics-grid">
+
+    <div class="topic-card">
+      <span class="topic-num">01</span>
+      <span class="topic-icon">🖥️</span>
+      <p class="topic-title">Home Lab &amp; Self-Hosting</p>
+      <p class="topic-desc">Running servers out of my home to experiment with virtualization, networking, and self-hosted services. The garage is the lab, and the lab never sleeps.</p>
     </div>
 
-    <script>
-        // Cache DOM elements
-        const pageContents = document.querySelectorAll('.page-content');
-        const navLinks = document.querySelectorAll('.links a');
-        const homeContent = document.getElementById('home-content');
-        const navHome = document.getElementById('nav-home');
-        const subtitle = document.getElementById('subtitle');
-        const socialsContent = document.getElementById('socials-content');
-        const navSocials = document.getElementById('nav-socials');
+    <div class="topic-card cyan-accent">
+      <span class="topic-num">02</span>
+      <span class="topic-icon">🤖</span>
+      <p class="topic-title">AI &amp; Vibe-Coding</p>
+      <p class="topic-desc">Prompting, tinkering, and shipping — using AI tools to build faster and debug smarter. If it involves LLMs or pushing code without a plan, I'm into it.</p>
+    </div>
 
-        function showPage(page) {
-            // Hide all page content
-            pageContents.forEach(content => {
-                content.classList.remove('active');
-            });
-            
-            // Remove active class from all nav links
-            navLinks.forEach(link => {
-                link.classList.remove('active');
-            });
-            
-            // Show selected page content
-            if (page === 'home') {
-                homeContent.classList.add('active');
-                navHome.classList.add('active');
-                subtitle.textContent = 'About Me';
-            } else if (page === 'socials') {
-                socialsContent.classList.add('active');
-                navSocials.classList.add('active');
-                subtitle.textContent = 'Connect With Me';
-            }
-        }
-    </script>
+    <div class="topic-card green-accent">
+      <span class="topic-num">03</span>
+      <span class="topic-icon">📡</span>
+      <p class="topic-title">No-License Radio</p>
+      <p class="topic-desc">FRS, GMRS, CB, and everything in between. The magic of wireless communication doesn't require a ticket to get started — just curiosity and a handheld.</p>
+    </div>
+
+    <div class="topic-card purple-accent">
+      <span class="topic-num">04</span>
+      <span class="topic-icon">🔧</span>
+      <p class="topic-title">SBC &amp; Computers</p>
+      <p class="topic-desc">Raspberry Pi, Orange Pi, and all things single-board. Small computers solving big problems — or at least interesting ones.</p>
+    </div>
+
+    <div class="topic-card amber-accent">
+      <span class="topic-num">05</span>
+      <span class="topic-icon">💰</span>
+      <p class="topic-title">Business &amp; Capitalism</p>
+      <p class="topic-desc">Entrepreneurship, side hustles, market dynamics, and the pursuit of building things that create value. I believe in the grind and the system it runs on.</p>
+    </div>
+
+    <div class="topic-card red-accent">
+      <span class="topic-num">06</span>
+      <span class="topic-icon">⭐</span>
+      <p class="topic-title">Sports &amp; Texas</p>
+      <p class="topic-desc">Rangers baseball, Stars hockey, and F1 racing — that's the holy trinity. Texas isn't just where I live, it's how I think. Lone Star through and through.</p>
+    </div>
+
+  </div>
+</section>
+
+<!-- CALLOUT -->
+<div class="callout">
+  <div class="callout-text">
+    Catch the content live.
+    <span>Streaming, building, and figuring it out in public — check out the channel.</span>
+  </div>
+  <a href="https://www.youtube.com/@HeyItsBurt-Main" target="_blank">Watch on YouTube →</a>
+</div>
+
+<!-- CONNECT -->
+<section id="connect">
+  <p class="section-label">// Find Me Online</p>
+  <h2 class="section-title">Let's Connect</h2>
+  <div class="section-divider"></div>
+
+  <div class="connect-grid">
+
+    <a href="https://www.youtube.com/@HeyItsBurt-Main" target="_blank" class="social-card">
+      <div class="social-icon">▶</div>
+      <div class="social-info">
+        <p class="social-name">YouTube</p>
+        <p class="social-handle">@HeyItsBurt-Main</p>
+      </div>
+      <span class="social-arrow">↗</span>
+    </a>
+
+    <a href="https://x.com/josephburt" target="_blank" class="social-card">
+      <div class="social-icon" style="font-family:'JetBrains Mono',monospace;font-size:1rem;font-weight:500;">X</div>
+      <div class="social-info">
+        <p class="social-name">X</p>
+        <p class="social-handle">@josephburt</p>
+      </div>
+      <span class="social-arrow">↗</span>
+    </a>
+
+    <a href="https://www.linkedin.com/in/heyitsburt/" target="_blank" class="social-card">
+      <div class="social-icon" style="font-family:'Barlow Condensed',sans-serif;font-size:1rem;font-weight:700;letter-spacing:0.05em;">in</div>
+      <div class="social-info">
+        <p class="social-name">LinkedIn</p>
+        <p class="social-handle">in/heyitsburt</p>
+      </div>
+      <span class="social-arrow">↗</span>
+    </a>
+
+    <a href="https://github.com/josephburt" target="_blank" class="social-card">
+      <div class="social-icon" style="font-size:1.4rem;">⌥</div>
+      <div class="social-info">
+        <p class="social-name">GitHub</p>
+        <p class="social-handle">josephburt</p>
+      </div>
+      <span class="social-arrow">↗</span>
+    </a>
+
+
+
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">Hey It's <span>Burt</span></div>
+  <p>Palmer, TX · Built with curiosity</p>
+  <div class="footer-links">
+    <a href="https://github.com/josephburt" target="_blank">GitHub</a>
+    <a href="https://x.com/josephburt" target="_blank">X</a>
+    <a href="https://www.youtube.com/@HeyItsBurt-Main" target="_blank">YouTube</a>
+  </div>
+</footer>
+
 </body>
 </html>
