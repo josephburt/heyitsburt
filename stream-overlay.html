@@ -1,0 +1,422 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Hey It's Burt — Stream Background</title>
+<meta name="viewport" content="width=1920,initial-scale=1" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Bowlby+One&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --bg: #1d1714;
+    --bg-2: #261e1a;
+    --cream: #f1d9a6;
+    --orange: #ec8a3a;
+    --muted: rgba(241,217,166,0.65);
+    --line: rgba(241,217,166,0.15);
+    --line-2: rgba(241,217,166,0.28);
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; height: 100%; background: #2a2521; }
+  body {
+    display: grid; place-items: center;
+    font-family: "Space Grotesk", sans-serif;
+    color: var(--cream);
+    overflow: hidden;
+  }
+
+  /* native 1920x1080 stage, scaled to viewport */
+  .stage-wrap {
+    width: 1920px; height: 1080px;
+    transform-origin: center center;
+  }
+  .stage {
+    width: 1920px; height: 1080px;
+    background: var(--bg);
+    position: relative;
+    overflow: hidden;
+    color: var(--cream);
+  }
+
+  /* atmosphere */
+  .stage::before {
+    content: ""; position: absolute; inset: 0; pointer-events: none; z-index: 0;
+    background:
+      radial-gradient(ellipse at 30% 35%, rgba(236,138,58,0.16), transparent 55%),
+      radial-gradient(ellipse at 80% 80%, rgba(236,138,58,0.10), transparent 50%);
+  }
+  .stage::after {
+    content: ""; position: absolute; inset: 0; pointer-events: none; z-index: 1;
+    background-image: repeating-linear-gradient(45deg, rgba(241,217,166,0.022) 0 3px, transparent 3px 8px);
+  }
+
+  /* faint background BURT */
+  .ghost {
+    position: absolute;
+    bottom: -120px; right: -60px;
+    font-family: "Bowlby One", sans-serif;
+    font-size: 720px;
+    line-height: 0.85;
+    color: rgba(241,217,166,0.04);
+    -webkit-text-stroke: 2px rgba(236,138,58,0.18);
+    letter-spacing: 0.005em;
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  /* corner ticks (full canvas) */
+  .tick { position: absolute; width: 36px; height: 36px; border: 4px solid var(--orange); z-index: 4; }
+  .tick.tl { top: 32px; left: 32px; border-right: none; border-bottom: none; }
+  .tick.tr { top: 32px; right: 32px; border-left: none; border-bottom: none; }
+  .tick.bl { bottom: 32px; left: 32px; border-right: none; border-top: none; }
+  .tick.br { bottom: 32px; right: 32px; border-left: none; border-top: none; }
+
+  /* ─────────────── TOP BAR ─────────────── */
+  .topbar {
+    position: absolute;
+    top: 32px; left: 96px; right: 96px;
+    height: 72px;
+    z-index: 5;
+    display: flex; align-items: center; gap: 32px;
+  }
+  .brand {
+    font-family: "Bowlby One", sans-serif;
+    font-size: 56px;
+    line-height: 1;
+    letter-spacing: 0.005em;
+    color: var(--cream);
+    text-shadow: 6px 6px 0 var(--orange);
+  }
+  .brand .o { color: var(--orange); text-shadow: none; }
+
+  .live-pill {
+    display: inline-flex; align-items: center; gap: 12px;
+    padding: 10px 18px;
+    border: 2px solid var(--orange);
+    background: rgba(236,138,58,0.1);
+    color: var(--orange);
+    font: 500 16px/1 "JetBrains Mono", monospace;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+  }
+  .live-pill .dot {
+    width: 12px; height: 12px; border-radius: 999px; background: var(--orange);
+    box-shadow: 0 0 0 4px rgba(236,138,58,0.25);
+    animation: pulse 1.6s ease-in-out infinite;
+  }
+  @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.4; } }
+
+  .clock {
+    margin-left: auto;
+    font: 500 16px/1 "JetBrains Mono", monospace;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-align: right;
+  }
+  .clock .v { color: var(--cream); font-size: 20px; display: block; margin-top: 4px; letter-spacing: 0.2em; }
+
+  /* ─────────────── DESKTOP CAPTURE WINDOW ─────────────── */
+  /* sized for a 16:9 1280x720 desktop capture; keeps 64px gutters around */
+  .desktop-frame {
+    position: absolute;
+    top: 152px;
+    left: 96px;
+    width: 1280px; height: 720px;
+    z-index: 3;
+    border: 3px solid var(--line-2);
+    background: #0c0907;
+    box-shadow: 0 16px 48px rgba(0,0,0,0.4);
+  }
+  .desktop-frame .label {
+    position: absolute;
+    top: -34px; left: 0;
+    font: 500 13px/1 "JetBrains Mono", monospace;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--orange);
+  }
+  .desktop-frame .corner-tag {
+    position: absolute;
+    bottom: -34px; left: 0;
+    font: 500 11px/1 "JetBrains Mono", monospace;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .desktop-frame .placeholder {
+    position: absolute; inset: 0;
+    display: grid; place-items: center;
+    color: rgba(241,217,166,0.35);
+    font: 500 14px/1.6 "JetBrains Mono", monospace;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    text-align: center;
+    background:
+      repeating-linear-gradient(135deg, rgba(241,217,166,0.04) 0 12px, transparent 12px 24px);
+  }
+  /* tick marks at the corners of the desktop window */
+  .desktop-frame::before, .desktop-frame::after,
+  .desktop-frame .ct1, .desktop-frame .ct2 {
+    content: ""; position: absolute; width: 18px; height: 18px;
+    border: 3px solid var(--orange);
+  }
+  .desktop-frame::before { top: -3px; left: -3px; border-right: none; border-bottom: none; }
+  .desktop-frame::after { top: -3px; right: -3px; border-left: none; border-bottom: none; }
+  .desktop-frame .ct1 { bottom: -3px; left: -3px; border-right: none; border-top: none; }
+  .desktop-frame .ct2 { bottom: -3px; right: -3px; border-left: none; border-top: none; }
+
+  /* ─────────────── WEBCAM WINDOW ─────────────── */
+  /* right column, top: 16:9 webcam slot */
+  .cam-frame {
+    position: absolute;
+    top: 152px;
+    right: 96px;
+    width: 432px; height: 324px;
+    z-index: 3;
+    border: 3px solid var(--orange);
+    background: #0c0907;
+    box-shadow: 0 16px 48px rgba(0,0,0,0.4);
+  }
+  .cam-frame .label {
+    position: absolute;
+    top: -34px; left: 0;
+    font: 500 13px/1 "JetBrains Mono", monospace;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--orange);
+  }
+  .cam-frame .placeholder {
+    position: absolute; inset: 0;
+    display: grid; place-items: center;
+    color: rgba(241,217,166,0.5);
+    font-family: "Bowlby One", sans-serif;
+    font-size: 88px;
+    background:
+      repeating-linear-gradient(135deg, rgba(236,138,58,0.06) 0 12px, transparent 12px 24px);
+    text-shadow: 4px 4px 0 var(--orange);
+  }
+  .cam-frame .placeholder span { color: var(--cream); }
+  .cam-frame::before, .cam-frame::after,
+  .cam-frame .ct1, .cam-frame .ct2 {
+    content: ""; position: absolute; width: 18px; height: 18px;
+    border: 3px solid var(--orange);
+  }
+  .cam-frame::before { top: -3px; left: -3px; border-right: none; border-bottom: none; }
+  .cam-frame::after { top: -3px; right: -3px; border-left: none; border-bottom: none; }
+  .cam-frame .ct1 { bottom: -3px; left: -3px; border-right: none; border-top: none; }
+  .cam-frame .ct2 { bottom: -3px; right: -3px; border-left: none; border-top: none; }
+
+  /* ─────────────── CHAT (right column, below cam) ─────────────── */
+  .chat {
+    position: absolute;
+    top: 510px;
+    right: 96px;
+    width: 432px;
+    height: 362px;
+    z-index: 3;
+    border: 3px solid var(--line-2);
+    background: var(--bg-2);
+    box-shadow: 0 16px 48px rgba(0,0,0,0.4);
+    display: flex; flex-direction: column;
+  }
+  .chat .label {
+    position: absolute;
+    top: -34px; left: 0;
+    font: 500 13px/1 "JetBrains Mono", monospace;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--orange);
+  }
+  .chat::before, .chat::after,
+  .chat .ct1, .chat .ct2 {
+    content: ""; position: absolute; width: 18px; height: 18px;
+    border: 3px solid var(--orange);
+  }
+  .chat::before { top: -3px; left: -3px; border-right: none; border-bottom: none; }
+  .chat::after  { top: -3px; right: -3px; border-left: none; border-bottom: none; }
+  .chat .ct1    { bottom: -3px; left: -3px; border-right: none; border-top: none; }
+  .chat .ct2    { bottom: -3px; right: -3px; border-left: none; border-top: none; }
+  .chat .placeholder {
+    flex: 1;
+    display: grid; place-items: center;
+    color: rgba(241,217,166,0.4);
+    font: 500 13px/1.6 "JetBrains Mono", monospace;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    text-align: center;
+    background:
+      repeating-linear-gradient(135deg, rgba(241,217,166,0.04) 0 12px, transparent 12px 24px);
+  }
+  .chat .placeholder strong {
+    display: block;
+    font-family: "Bowlby One", sans-serif;
+    color: var(--cream);
+    font-size: 36px;
+    letter-spacing: 0.005em;
+    text-shadow: 4px 4px 0 var(--orange);
+    margin-bottom: 12px;
+  }
+
+  /* ─────────────── TITLE BAR (bottom strip) ─────────────── */
+  .titlebar {
+    position: absolute;
+    bottom: 96px;
+    left: 96px; right: 96px;
+    height: 152px;
+    z-index: 4;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    border: 2px solid var(--orange);
+    background:
+      linear-gradient(90deg, rgba(236,138,58,0.08), transparent 50%),
+      var(--bg-2);
+    padding: 0 36px;
+    gap: 32px;
+    box-shadow: 0 12px 36px rgba(0,0,0,0.3);
+  }
+  .titlebar::before {
+    content: "EP. 042";
+    position: absolute;
+    top: -16px; left: 36px;
+    background: var(--bg);
+    padding: 4px 14px;
+    font: 500 13px/1 "JetBrains Mono", monospace;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    color: var(--orange);
+  }
+  .title-text { display: flex; flex-direction: column; gap: 10px; min-width: 0; }
+  .title-text .kicker {
+    font: 500 14px/1 "JetBrains Mono", monospace;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    color: var(--orange);
+  }
+  .title-text .title {
+    font-family: "Bowlby One", sans-serif;
+    font-size: 56px;
+    line-height: 1;
+    color: var(--cream);
+    letter-spacing: 0.005em;
+    text-shadow: 4px 4px 0 var(--orange);
+    overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+  }
+  .title-meta {
+    text-align: right;
+    border-left: 1.5px solid var(--line-2);
+    padding-left: 32px;
+  }
+  .title-meta .t {
+    font: 500 12px/1 "JetBrains Mono", monospace;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 8px;
+  }
+  .title-meta .v {
+    font-family: "Bowlby One", sans-serif;
+    font-size: 32px;
+    line-height: 1;
+    color: var(--orange);
+    letter-spacing: 0.005em;
+  }
+
+  /* ─────────────── FOOTER STRIP ─────────────── */
+  .foot {
+    position: absolute;
+    bottom: 32px; left: 96px; right: 96px;
+    height: 36px;
+    z-index: 5;
+    display: flex; align-items: center; gap: 24px;
+    font: 500 13px/1 "JetBrains Mono", monospace;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .foot .accent { color: var(--orange); }
+  .foot .sep { color: var(--orange); margin: 0 8px; }
+  .foot .right { margin-left: auto; }
+
+  /* fit the 1920x1080 stage to whatever the viewport is */
+  @media (max-aspect-ratio: 16/9) {
+    .stage-wrap { transform: scale(calc(100vw / 1920)); }
+  }
+  @media (min-aspect-ratio: 16/9) {
+    .stage-wrap { transform: scale(calc(100vh / 1080)); }
+  }
+</style>
+</head>
+<body>
+  <div class="stage-wrap">
+    <div class="stage">
+      <div class="ghost">BURT</div>
+
+      <div class="tick tl"></div>
+      <div class="tick tr"></div>
+      <div class="tick bl"></div>
+      <div class="tick br"></div>
+
+      <!-- TOP BAR -->
+      <div class="topbar">
+        <div class="brand">BURT<span class="o">.</span></div>
+        <div class="live-pill"><span class="dot"></span>LIVE</div>
+        <div class="clock">
+          Palmer · TX
+          <span class="v" id="clock">—:—</span>
+        </div>
+      </div>
+
+      <!-- DESKTOP CAPTURE -->
+      <div class="desktop-frame">
+        <div class="ct1"></div><div class="ct2"></div>
+        <div class="label">// 01 · DESKTOP</div>
+        <div class="placeholder">[ desktop capture goes here ]<br/>1280 × 720</div>
+        <div class="corner-tag">cap · 1280 × 720 · obs source</div>
+      </div>
+
+      <!-- WEBCAM -->
+      <div class="cam-frame">
+        <div class="ct1"></div><div class="ct2"></div>
+        <div class="label">// 02 · CAM</div>
+        <div class="placeholder">B<span>.</span></div>
+      </div>
+
+      <!-- CHAT -->
+      <div class="chat">
+        <div class="ct1"></div><div class="ct2"></div>
+        <div class="label">// 03 · CHAT</div>
+        <div class="placeholder"><div><strong>CHAT</strong>[ live chat goes here ]<br/>432 × 362</div></div>
+      </div>
+
+      <!-- TITLE BAR removed -->
+
+      <!-- FOOTER -->
+      <div class="foot">
+        <span class="accent">●</span> live · streaming
+        <span class="sep">✦</span>
+        Palmer, Texas
+        <span class="sep">✦</span>
+        est. 2026
+        <span class="right">heyitsburt.com</span>
+      </div>
+
+    </div>
+  </div>
+
+<script>
+  // tick a clock in the top bar
+  function tick() {
+    const d = new Date();
+    const h = d.getHours().toString().padStart(2,'0');
+    const m = d.getMinutes().toString().padStart(2,'0');
+    const s = d.getSeconds().toString().padStart(2,'0');
+    const el = document.getElementById('clock');
+    if (el) el.textContent = h + ':' + m + ':' + s;
+  }
+  tick(); setInterval(tick, 1000);
+</script>
+</body>
+</html>
