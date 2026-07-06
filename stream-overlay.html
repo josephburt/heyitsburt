@@ -9,16 +9,16 @@
 <link href="https://fonts.googleapis.com/css2?family=Bowlby+One&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet" />
 <style>
   :root {
-    --bg: #1d1714;
-    --bg-2: #261e1a;
-    --cream: #f1d9a6;
-    --orange: #ec8a3a;
-    --muted: rgba(241,217,166,0.65);
-    --line: rgba(241,217,166,0.15);
-    --line-2: rgba(241,217,166,0.28);
+    --bg: #0f1419;
+    --bg-2: #1a2332;
+    --cream: #f0e8d8;
+    --orange: #c88652;
+    --muted: rgba(240, 232, 216, 0.7);
+    --line: rgba(240, 232, 216, 0.11);
+    --line-2: rgba(240, 232, 216, 0.2);
   }
   * { box-sizing: border-box; }
-  html, body { margin: 0; padding: 0; height: 100%; background: #2a2521; }
+  html, body { margin: 0; padding: 0; height: 100%; background: #0f1419; }
   body {
     display: grid; place-items: center;
     font-family: "Space Grotesk", sans-serif;
@@ -43,12 +43,12 @@
   .stage::before {
     content: ""; position: absolute; inset: 0; pointer-events: none; z-index: 0;
     background:
-      radial-gradient(ellipse at 30% 35%, rgba(236,138,58,0.16), transparent 55%),
-      radial-gradient(ellipse at 80% 80%, rgba(236,138,58,0.10), transparent 50%);
+      radial-gradient(ellipse at 30% 35%, rgba(200,134,82,0.16), transparent 55%),
+      radial-gradient(ellipse at 80% 80%, rgba(200,134,82,0.10), transparent 50%);
   }
   .stage::after {
     content: ""; position: absolute; inset: 0; pointer-events: none; z-index: 1;
-    background-image: repeating-linear-gradient(45deg, rgba(241,217,166,0.022) 0 3px, transparent 3px 8px);
+    background-image: repeating-linear-gradient(45deg, rgba(240,232,216,0.022) 0 3px, transparent 3px 8px);
   }
 
   /* faint background BURT */
@@ -58,8 +58,8 @@
     font-family: "Bowlby One", sans-serif;
     font-size: 720px;
     line-height: 0.85;
-    color: rgba(241,217,166,0.04);
-    -webkit-text-stroke: 2px rgba(236,138,58,0.18);
+    color: rgba(240,232,216,0.04);
+    -webkit-text-stroke: 2px rgba(200,134,82,0.18);
     letter-spacing: 0.005em;
     pointer-events: none;
     z-index: 1;
@@ -94,7 +94,7 @@
     display: inline-flex; align-items: center; gap: 12px;
     padding: 10px 18px;
     border: 2px solid var(--orange);
-    background: rgba(236,138,58,0.1);
+    background: rgba(200,134,82,0.1);
     color: var(--orange);
     font: 500 16px/1 "JetBrains Mono", monospace;
     letter-spacing: 0.32em;
@@ -102,7 +102,7 @@
   }
   .live-pill .dot {
     width: 12px; height: 12px; border-radius: 999px; background: var(--orange);
-    box-shadow: 0 0 0 4px rgba(236,138,58,0.25);
+    box-shadow: 0 0 0 4px rgba(200,134,82,0.25);
     animation: pulse 1.6s ease-in-out infinite;
   }
   @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.4; } }
@@ -126,7 +126,7 @@
     width: 1280px; height: 720px;
     z-index: 3;
     border: 3px solid var(--line-2);
-    background: #0c0907;
+    background: #0a0e14;
     box-shadow: 0 16px 48px rgba(0,0,0,0.4);
   }
   .desktop-frame .label {
@@ -148,13 +148,13 @@
   .desktop-frame .placeholder {
     position: absolute; inset: 0;
     display: grid; place-items: center;
-    color: rgba(241,217,166,0.35);
+    color: rgba(240,232,216,0.35);
     font: 500 14px/1.6 "JetBrains Mono", monospace;
     letter-spacing: 0.2em;
     text-transform: uppercase;
     text-align: center;
     background:
-      repeating-linear-gradient(135deg, rgba(241,217,166,0.04) 0 12px, transparent 12px 24px);
+      repeating-linear-gradient(135deg, rgba(240,232,216,0.04) 0 12px, transparent 12px 24px);
   }
   /* tick marks at the corners of the desktop window */
   .desktop-frame::before, .desktop-frame::after,
@@ -176,7 +176,7 @@
     width: 432px; height: 324px;
     z-index: 3;
     border: 3px solid var(--orange);
-    background: #0c0907;
+    background: #0a0e14;
     box-shadow: 0 16px 48px rgba(0,0,0,0.4);
   }
   .cam-frame .label {
@@ -190,11 +190,11 @@
   .cam-frame .placeholder {
     position: absolute; inset: 0;
     display: grid; place-items: center;
-    color: rgba(241,217,166,0.5);
+    color: rgba(240,232,216,0.5);
     font-family: "Bowlby One", sans-serif;
     font-size: 88px;
     background:
-      repeating-linear-gradient(135deg, rgba(236,138,58,0.06) 0 12px, transparent 12px 24px);
+      repeating-linear-gradient(135deg, rgba(200,134,82,0.06) 0 12px, transparent 12px 24px);
     text-shadow: 4px 4px 0 var(--orange);
   }
   .cam-frame .placeholder span { color: var(--cream); }
@@ -241,13 +241,13 @@
   .chat .placeholder {
     flex: 1;
     display: grid; place-items: center;
-    color: rgba(241,217,166,0.4);
+    color: rgba(240,232,216,0.4);
     font: 500 13px/1.6 "JetBrains Mono", monospace;
     letter-spacing: 0.22em;
     text-transform: uppercase;
     text-align: center;
     background:
-      repeating-linear-gradient(135deg, rgba(241,217,166,0.04) 0 12px, transparent 12px 24px);
+      repeating-linear-gradient(135deg, rgba(240,232,216,0.04) 0 12px, transparent 12px 24px);
   }
   .chat .placeholder strong {
     display: block;
@@ -271,7 +271,7 @@
     align-items: center;
     border: 2px solid var(--orange);
     background:
-      linear-gradient(90deg, rgba(236,138,58,0.08), transparent 50%),
+      linear-gradient(90deg, rgba(200,134,82,0.08), transparent 50%),
       var(--bg-2);
     padding: 0 36px;
     gap: 32px;
