@@ -1,0 +1,19 @@
+:root {
+  --bg: #0f1419;
+  --bg-2: #1a2332;
+  --bg-3: #243044;
+  --cream: #f0e8d8;
+  --orange: #c88652;
+  --accent: #8eb4d4;
+  --muted: rgba(240, 232, 216, 0.7);
+  --line: rgba(240, 232, 216, 0.11);
+  --line-2: rgba(240, 232, 216, 0.2);
+  --nav-bg: rgba(15, 20, 25, 0.9);
+  --nav-bg-menu: rgba(15, 20, 25, 0.98);
+  --hero-glow: rgba(200, 134, 82, 0.08);
+  --orange-soft: rgba(200, 134, 82, 0.1);
+  --orange-hover: rgba(200, 134, 82, 0.06);
+  --bio: rgba(240, 232, 216, 0.82);
+  --grain: rgba(240, 232, 216, 0.014);
+  --pulse-ring: rgba(200, 134, 82, 0.16);
+}
