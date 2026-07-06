@@ -1,1 +1,5 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><rect width="32" height="32" rx="6" fill="#0d0d0f"/><text x="16" y="22" text-anchor="middle" font-family="system-ui,sans-serif" font-size="14" font-weight="700" fill="#f5f0e8">B</text></svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <rect width="64" height="64" fill="#0f1419"/>
+  <text x="32" y="44" font-family="Georgia, serif" font-weight="900" font-size="28" text-anchor="middle" fill="#f0e8d8">B.</text>
+  <text x="34" y="46" font-family="Georgia, serif" font-weight="900" font-size="28" text-anchor="middle" fill="#c88652">B.</text>
+</svg>
