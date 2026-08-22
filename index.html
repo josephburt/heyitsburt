@@ -4,18 +4,18 @@
   <meta charset="utf-8">
   <title>Hey It's Burt — Builder · Tinkerer · Signal Chaser · Capitalist</title>
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="description" content="Joseph Burt — builder, tinkerer, signal chaser. Home lab, self-hosting, AI, no-license radio, SBC builds, and the occasional baseball game. Palmer, Texas.">
+  <meta name="description" content="Joseph Burt — builder, tinkerer, signal chaser. Home lab, self-hosting, AI, no-license radio, SBC builds, and the occasional baseball game. Based in the DFW area.">
   <link rel="canonical" href="https://heyitsburt.com/">
-  <meta name="theme-color" content="#0f1419">
+  <meta name="theme-color" content="#07090c">
 
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://heyitsburt.com/">
   <meta property="og:title" content="Hey It's Burt">
-  <meta property="og:description" content="Builder · Tinkerer · Signal Chaser · Capitalist. Palmer, TX.">
+  <meta property="og:description" content="Builder · Tinkerer · Signal Chaser · Capitalist. Based in the DFW area.">
   <meta property="og:image" content="https://heyitsburt.com/images/og-image.svg">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Hey It's Burt">
-  <meta name="twitter:description" content="Builder · Tinkerer · Signal Chaser · Capitalist. Palmer, TX.">
+  <meta name="twitter:description" content="Builder · Tinkerer · Signal Chaser · Capitalist. Based in the DFW area.">
   <meta name="twitter:image" content="https://heyitsburt.com/images/og-image.svg">
 
   <link rel="icon" href="images/favicon.svg" type="image/svg+xml">
@@ -33,10 +33,10 @@
     "alternateName": "Hey It's Burt",
     "url": "https://heyitsburt.com/",
     "jobTitle": "Builder",
-    "description": "Builder, tinkerer, signal chaser, and capitalist out of Palmer, Texas.",
+    "description": "Builder, tinkerer, signal chaser, and capitalist based in the DFW area.",
     "homeLocation": {
       "@type": "Place",
-      "name": "Palmer, Texas"
+      "name": "Dallas–Fort Worth"
     },
     "sameAs": [
       "https://github.com/josephburt",
@@ -50,153 +50,264 @@
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
 
-  <nav class="nav" aria-label="Primary">
-    <div class="nav-inner">
-      <a class="nav-mark" href="#top">BURT<span class="o">.</span></a>
+  <div class="grain" aria-hidden="true"></div>
+
+  <header class="station-bar" id="top">
+    <div class="station-bar-inner">
+      <a class="nav-mark" href="#top" aria-label="Hey It's Burt, back to top">BURT<span class="o">.</span></a>
+
       <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-menu">
         <span aria-hidden="true">☰</span>
         <span>Menu</span>
       </button>
-      <div class="nav-links" id="nav-menu">
-        <a href="#about">About</a>
-        <a href="#projects">Projects</a>
-        <a href="#videos">Videos</a>
-        <a href="#connect">Connect</a>
-      </div>
-      <div class="nav-loc" aria-label="Location">
-        <span class="dot" aria-hidden="true"></span>Palmer · TX
-        <span class="live-badge" id="live-badge" hidden>
-          <span class="dot" aria-hidden="true"></span>LIVE
-        </span>
+
+      <nav class="nav-links" id="nav-menu" aria-label="Primary">
+        <a href="#about"><span class="idx">01</span> About</a>
+        <a href="#projects"><span class="idx">02</span> Projects</a>
+        <a href="#videos"><span class="idx">03</span> Videos</a>
+        <a href="#connect"><span class="idx">04</span> Connect</a>
+      </nav>
+
+      <div class="station-status">
+        <div class="status-cell">
+          <span class="k">LOC</span>
+          <span class="v">DFW · TX</span>
+        </div>
+        <div class="status-cell" aria-live="polite">
+          <span class="k">LOCAL</span>
+          <time class="v" id="clock-local">--:--:--</time>
+        </div>
+        <div class="status-cell">
+          <span class="k">UTC</span>
+          <time class="v" id="clock-utc">--:--:--</time>
+        </div>
+        <div class="status-cell live-cell">
+          <span class="live-dot" id="live-dot" aria-hidden="true"></span>
+          <span class="v" id="live-label">STANDBY</span>
+        </div>
       </div>
     </div>
-  </nav>
+  </header>
 
   <main id="main">
-    <header id="top" class="hero">
-      <div class="wrap hero-inner">
-        <div class="kicker mono"><span class="bar" aria-hidden="true"></span><span class="kicker-text">Palmer, Texas<span class="sep" aria-hidden="true">·</span>Online Everywhere</span><span class="bar" aria-hidden="true"></span></div>
+    <section class="hero" aria-label="Station identification">
+      <canvas class="spectrum" id="spectrum" aria-hidden="true"></canvas>
+      <div class="hero-shade" aria-hidden="true"></div>
 
-        <h1 class="lockup">HEY<span class="o">.</span> IT'S BURT<span class="o">.</span></h1>
+      <div class="wrap hero-grid">
+        <div class="hero-copy">
+          <p class="kicker mono">
+            <span class="bar" aria-hidden="true"></span>
+            <span>DFW Listening Post</span>
+            <span class="sep" aria-hidden="true">·</span>
+            <span class="kicker-geo">Dallas–Fort Worth</span>
+          </p>
 
-        <div class="roles" aria-label="Roles">
-          <span>Builder</span>
-          <span class="sep" aria-hidden="true">✦</span>
-          <span>Tinkerer</span>
-          <span class="sep" aria-hidden="true">✦</span>
-          <span>Signal Chaser</span>
-          <span class="sep" aria-hidden="true">✦</span>
-          <span>Capitalist</span>
+          <h1 class="lockup">HEY<span class="o">.</span><br>IT'S<br>BURT<span class="o">.</span></h1>
+
+          <ul class="roles" aria-label="Roles">
+            <li><button type="button" data-mode="BUILD" class="is-active">Builder</button></li>
+            <li><button type="button" data-mode="TINK">Tinkerer</button></li>
+            <li><button type="button" data-mode="SIG">Signal Chaser</button></li>
+            <li><button type="button" data-mode="CAP">Capitalist</button></li>
+          </ul>
+
+          <p class="bio">I break things to understand them, build things to prove I can, and share everything along the way. From servers in my garage to signals in the air — if it runs on power and curiosity, I'm in.</p>
+
+          <div class="ctas">
+            <a class="btn primary" href="#connect">Find me online</a>
+            <a class="btn" href="https://github.com/josephburt" target="_blank" rel="noopener">GitHub ↗</a>
+          </div>
         </div>
 
-        <p class="bio">I break things to understand them, build things to prove I can, and share everything along the way. From servers in my garage to signals in the air — if it runs on power and curiosity, I'm in.</p>
+        <aside class="rig" aria-label="Receiver readout">
+          <div class="rig-ticks" aria-hidden="true"></div>
+          <div class="rig-head">
+            <span class="mono">RX</span>
+            <span class="mono" id="rig-band">ISM · UHF</span>
+            <span class="mono" id="rig-state">STANDBY</span>
+          </div>
 
-        <div class="ctas">
-          <a class="btn primary" href="#connect">Find me online ↓</a>
-          <a class="btn" href="https://github.com/josephburt" target="_blank" rel="noopener">GitHub →</a>
-        </div>
+          <div class="vfo">
+            <span class="vfo-label mono">FREQ</span>
+            <div class="vfo-row">
+              <span class="vfo-digits" id="vfo">433.920</span>
+              <span class="vfo-unit mono">MHz</span>
+            </div>
+            <p class="vfo-hint mono">Click the waterfall to tune</p>
+          </div>
+
+          <div class="meter">
+            <div class="meter-head">
+              <span class="mono">SIGNAL</span>
+              <span class="mono" id="s-readout">S5</span>
+            </div>
+            <div class="meter-bars" id="s-meter" aria-hidden="true"></div>
+          </div>
+
+          <dl class="rig-meta">
+            <div>
+              <dt>LOC</dt>
+              <dd>DFW area</dd>
+            </div>
+            <div>
+              <dt>MODE</dt>
+              <dd id="rig-mode">BUILD</dd>
+            </div>
+            <div>
+              <dt>OP</dt>
+              <dd>Joseph Burt</dd>
+            </div>
+            <div>
+              <dt>NET</dt>
+              <dd>Online everywhere</dd>
+            </div>
+          </dl>
+        </aside>
       </div>
-    </header>
+
+      <div class="freq-scale wrap" aria-hidden="true">
+        <span>24 MHz</span>
+        <span class="scale-line"></span>
+        <span>433.92</span>
+        <span class="scale-line"></span>
+        <span>1300 MHz</span>
+      </div>
+    </section>
 
     <section id="about" class="about">
       <div class="wrap">
-        <div class="section-head">
+        <header class="section-head">
           <span class="num">01</span>
-          <h2 class="title">About</h2>
-          <span class="meta">— who's behind the keyboard</span>
-        </div>
+          <div>
+            <h2>About</h2>
+            <p class="meta">Operator notes — who's behind the keyboard</p>
+          </div>
+        </header>
 
-        <div class="about-prose">
-          <p>I'm <em>Joseph Burt</em> — a builder in Palmer, Texas who treats the garage like a workshop and the workshop like a lab. Servers on the shelf, radios on the bench, and too many single-board computers doing jobs they were never designed for.</p>
-          <p>Most of what I do lives at the intersection of <em>hardware, software, and curiosity</em>. I self-host because I want to understand the stack. I stream because building in public keeps me honest. I chase signals because there's something satisfying about making contact without asking permission first.</p>
-          <p>If there's a through-line, it's simple: <em>learn it, break it, rebuild it, share it</em>. This site is where those threads come together — projects, experiments, streams, and whatever I'm obsessing over this week.</p>
+        <div class="about-grid">
+          <div class="about-prose">
+            <p>I'm <em>Joseph Burt</em> — a builder based in the DFW area who treats the garage like a workshop and the workshop like a lab. Servers on the shelf, radios on the bench, and too many single-board computers doing jobs they were never designed for.</p>
+            <p>Most of what I do lives at the intersection of <em>hardware, software, and curiosity</em>. I self-host because I want to understand the stack. I stream because building in public keeps me honest. I chase signals because there's something satisfying about making contact without asking permission first.</p>
+            <p>If there's a through-line, it's simple: <em>learn it, break it, rebuild it, share it</em>. This site is where those threads come together — projects, experiments, streams, and whatever I'm obsessing over this week.</p>
+          </div>
+
+          <aside class="op-card">
+            <div class="op-card-head">
+              <span class="mono">OPERATOR CARD</span>
+              <span class="mono">EST. 2026</span>
+            </div>
+            <p class="op-name">Joseph Burt</p>
+            <p class="op-aka">aka Hey It's Burt</p>
+            <dl>
+              <div>
+                <dt>Location</dt>
+                <dd>Dallas–Fort Worth</dd>
+              </div>
+              <div>
+                <dt>Timezone</dt>
+                <dd>America/Chicago</dd>
+              </div>
+              <div>
+                <dt>Workshop</dt>
+                <dd>Garage lab · radios · SBCs</dd>
+              </div>
+              <div>
+                <dt>Method</dt>
+                <dd>Learn · break · rebuild · share</dd>
+              </div>
+              <div>
+                <dt>Status</dt>
+                <dd id="op-status">Building in public</dd>
+              </div>
+            </dl>
+          </aside>
         </div>
       </div>
     </section>
 
     <section id="projects">
       <div class="wrap">
-        <div class="section-head">
+        <header class="section-head">
           <span class="num">02</span>
-          <h2 class="title">Projects</h2>
-          <span class="meta">— public repos on GitHub</span>
-        </div>
-        <div class="projects-grid" id="projects-grid" aria-live="polite"></div>
+          <div>
+            <h2>Projects</h2>
+            <p class="meta">Station log — public repos on GitHub</p>
+          </div>
+          <a class="section-link" href="https://github.com/josephburt" target="_blank" rel="noopener">github.com/josephburt ↗</a>
+        </header>
+        <div class="log" id="projects-grid" aria-live="polite"></div>
       </div>
     </section>
 
-    <section id="videos">
+    <section id="videos" class="videos">
       <div class="wrap">
-        <div class="section-head">
+        <header class="section-head">
           <span class="num">03</span>
-          <h2 class="title">Latest Videos</h2>
-          <span class="meta">— from the channel</span>
-        </div>
+          <div>
+            <h2>Latest Videos</h2>
+            <p class="meta">Transmissions — from the channel</p>
+          </div>
+          <a class="section-link" href="https://www.youtube.com/@HeyItsBurt-Main" target="_blank" rel="noopener">YouTube ↗</a>
+        </header>
         <div class="videos-grid" id="videos-grid" aria-live="polite"></div>
       </div>
     </section>
 
-    <div class="cta-strip">
-      <div class="wrap">
-        <h2>Catch the content live.</h2>
-        <p>Streaming, building, and figuring it out in public — simulcast on YouTube and X at the same time.</p>
-        <div class="ctas" style="justify-content:center;">
-          <a class="btn primary" href="https://www.youtube.com/@HeyItsBurt-Main" target="_blank" rel="noopener">Watch on YouTube →</a>
-          <a class="btn" href="https://x.com/josephburt" target="_blank" rel="noopener">Watch on X →</a>
+    <section class="cta-strip" aria-label="Live streams">
+      <div class="wrap cta-inner">
+        <div>
+          <p class="mono kicker-inline"><span class="live-dot" aria-hidden="true"></span> Simulcast</p>
+          <h2>Catch the content live.</h2>
+          <p>Streaming, building, and figuring it out in public — simulcast on YouTube and X at the same time.</p>
+        </div>
+        <div class="ctas">
+          <a class="btn primary" href="https://www.youtube.com/@HeyItsBurt-Main" target="_blank" rel="noopener">Watch on YouTube ↗</a>
+          <a class="btn" href="https://x.com/josephburt" target="_blank" rel="noopener">Watch on X ↗</a>
         </div>
       </div>
-    </div>
+    </section>
 
     <section id="connect">
       <div class="wrap">
-        <div class="section-head">
+        <header class="section-head">
           <span class="num">04</span>
-          <h2 class="title">Let's Connect</h2>
-          <span class="meta">— find me online</span>
-        </div>
+          <div>
+            <h2>Let's Connect</h2>
+            <p class="meta">Frequencies — find me online</p>
+          </div>
+        </header>
 
         <div class="connect-grid">
-          <a class="channel" href="https://www.youtube.com/@HeyItsBurt-Main" target="_blank" rel="noopener">
-            <div class="icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.6 12 3.6 12 3.6s-7.5 0-9.4.5A3 3 0 0 0 .5 6.2C0 8.1 0 12 0 12s0 3.9.5 5.8a3 3 0 0 0 2.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 0 0 2.1-2.1c.5-1.9.5-5.8.5-5.8s0-3.9-.5-5.8zM9.6 15.6V8.4l6.3 3.6-6.3 3.6z"></path></svg>
-            </div>
-            <div class="text">
-              <span class="platform">// YouTube</span>
-              <span class="handle">@HeyItsBurt-Main</span>
-            </div>
+          <a class="channel" rel="me noopener" href="https://www.youtube.com/@HeyItsBurt-Main" target="_blank">
+            <span class="ch-id mono">CH 01</span>
+            <span class="platform mono">YouTube</span>
+            <span class="handle">@HeyItsBurt-Main</span>
+            <span class="ch-note">Watch the builds</span>
             <span class="arrow" aria-hidden="true">↗</span>
           </a>
 
-          <a class="channel" href="https://x.com/josephburt" target="_blank" rel="noopener">
-            <div class="icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"></path></svg>
-            </div>
-            <div class="text">
-              <span class="platform">// X / Twitter</span>
-              <span class="handle">@josephburt</span>
-            </div>
+          <a class="channel" rel="me noopener" href="https://x.com/josephburt" target="_blank">
+            <span class="ch-id mono">CH 02</span>
+            <span class="platform mono">X / Twitter</span>
+            <span class="handle">@josephburt</span>
+            <span class="ch-note">Signal in the timeline</span>
             <span class="arrow" aria-hidden="true">↗</span>
           </a>
 
-          <a class="channel" href="https://www.linkedin.com/in/heyitsburt/" target="_blank" rel="noopener">
-            <div class="icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.13 1.45-2.13 2.94v5.66H9.36V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.72v20.56C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.72V1.72C24 .77 23.2 0 22.22 0z"></path></svg>
-            </div>
-            <div class="text">
-              <span class="platform">// LinkedIn</span>
-              <span class="handle">in/heyitsburt</span>
-            </div>
+          <a class="channel" rel="me noopener" href="https://www.linkedin.com/in/heyitsburt/" target="_blank">
+            <span class="ch-id mono">CH 03</span>
+            <span class="platform mono">LinkedIn</span>
+            <span class="handle">in/heyitsburt</span>
+            <span class="ch-note">The professional net</span>
             <span class="arrow" aria-hidden="true">↗</span>
           </a>
 
-          <a class="channel" href="https://github.com/josephburt" target="_blank" rel="noopener">
-            <div class="icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 .3a12 12 0 0 0-3.8 23.4c.6.1.8-.3.8-.6v-2.2c-3.3.7-4-1.4-4-1.4-.5-1.4-1.3-1.7-1.3-1.7-1.1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1.1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.8-1.6-2.7-.3-5.5-1.3-5.5-6 0-1.3.5-2.4 1.2-3.2-.1-.3-.5-1.5.1-3.2 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0c2.3-1.5 3.3-1.2 3.3-1.2.6 1.7.2 2.9.1 3.2.8.8 1.2 1.9 1.2 3.2 0 4.7-2.9 5.7-5.5 6 .4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6A12 12 0 0 0 12 .3"></path></svg>
-            </div>
-            <div class="text">
-              <span class="platform">// GitHub</span>
-              <span class="handle">josephburt</span>
-            </div>
+          <a class="channel" rel="me noopener" href="https://github.com/josephburt" target="_blank">
+            <span class="ch-id mono">CH 04</span>
+            <span class="platform mono">GitHub</span>
+            <span class="handle">josephburt</span>
+            <span class="ch-note">Source in the clear</span>
             <span class="arrow" aria-hidden="true">↗</span>
           </a>
         </div>
@@ -206,10 +317,11 @@
 
   <footer>
     <div class="wrap">
+      <div class="foot-spectrum" aria-hidden="true"></div>
       <div class="foot-row">
         <div class="foot-mark">BURT<span class="o">.</span></div>
         <div class="foot-meta">
-          <div class="est">Hey It's Burt<br>Palmer · TX · 75152</div>
+          <p class="est">Hey It's Burt<br>DFW Listening Post<br>Dallas–Fort Worth</p>
         </div>
       </div>
       <div class="foot-bottom">
