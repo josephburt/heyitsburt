@@ -1,14 +1,23 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630">
-  <rect width="1200" height="630" fill="#0f1419"/>
-  <rect width="1200" height="630" fill="url(#glow)"/>
+  <rect width="1200" height="630" fill="#07090c"/>
   <defs>
-    <radialGradient id="glow" cx="35%" cy="35%" r="70%">
-      <stop offset="0%" stop-color="#c88652" stop-opacity="0.18"/>
-      <stop offset="100%" stop-color="#0f1419" stop-opacity="0"/>
-    </radialGradient>
+    <linearGradient id="scope" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#7dffb3" stop-opacity="0.45"/>
+      <stop offset="100%" stop-color="#07090c" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="water" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#12203a"/>
+      <stop offset="35%" stop-color="#d48a4a"/>
+      <stop offset="62%" stop-color="#f3eadc"/>
+      <stop offset="100%" stop-color="#7dffb3"/>
+    </linearGradient>
   </defs>
-  <text x="620" y="360" font-family="Georgia, serif" font-weight="900" font-size="180" text-anchor="middle" fill="#c88652">BURT.</text>
-  <text x="600" y="340" font-family="Georgia, serif" font-weight="900" font-size="180" text-anchor="middle" fill="#f0e8d8">BURT.</text>
-  <text x="600" y="430" font-family="monospace" font-size="28" text-anchor="middle" fill="#f0e8d8" opacity="0.75">Builder · Tinkerer · Signal Chaser · Capitalist</text>
-  <text x="600" y="480" font-family="monospace" font-size="22" text-anchor="middle" fill="#8eb4d4" letter-spacing="6">PALMER · TX · HEYITSBURT.COM</text>
+  <rect x="0" y="430" width="1200" height="200" fill="url(#water)" opacity="0.35"/>
+  <path d="M0 420 C 80 390, 140 350, 210 360 S 340 300, 420 280 S 560 330, 640 250 S 780 220, 860 270 S 1020 180, 1200 210 L 1200 430 L 0 430 Z" fill="url(#scope)"/>
+  <path d="M0 420 C 80 390, 140 350, 210 360 S 340 300, 420 280 S 560 330, 640 250 S 780 220, 860 270 S 1020 180, 1200 210" fill="none" stroke="#7dffb3" stroke-width="3"/>
+  <text x="64" y="86" font-family="monospace" font-size="22" fill="#7dffb3" letter-spacing="8">PALMER LISTENING POST · 32.431N 96.670W</text>
+  <text x="70" y="250" font-family="Georgia, serif" font-weight="900" font-size="128" fill="#d48a4a">BURT.</text>
+  <text x="60" y="238" font-family="Georgia, serif" font-weight="900" font-size="128" fill="#f3eadc">BURT.</text>
+  <text x="64" y="300" font-family="monospace" font-size="26" fill="#f3eadc" opacity="0.8">Builder · Tinkerer · Signal Chaser · Capitalist</text>
+  <text x="64" y="400" font-family="monospace" font-size="22" fill="#8eb4d4" letter-spacing="6">433.920 MHz · HEYITSBURT.COM</text>
 </svg>
