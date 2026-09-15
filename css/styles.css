@@ -23,7 +23,9 @@ img { max-width: 100%; display: block; }
 .video-card:focus-visible,
 .nav-links a:focus-visible,
 .roles button:focus-visible,
-.section-link:focus-visible {
+.section-link:focus-visible,
+.bio a:focus-visible,
+.about-prose a:focus-visible {
   outline: 2px solid var(--phosphor);
   outline-offset: 3px;
 }
@@ -304,6 +306,17 @@ body.is-live .live-cell .v { color: var(--phosphor); }
   line-height: 1.65;
   color: var(--bio);
   overflow-wrap: break-word;
+}
+.bio a,
+.about-prose a {
+  color: var(--orange);
+  text-decoration: underline;
+  text-underline-offset: 0.18em;
+  text-decoration-thickness: 1px;
+}
+.bio a:hover,
+.about-prose a:hover {
+  color: var(--orange-hot);
 }
 
 .ctas {
@@ -628,6 +641,45 @@ section { padding: 88px 0; position: relative; }
   .about-grid { grid-template-columns: minmax(0, 1fr); }
 }
 
+.dispatch {
+  margin-top: 40px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 28px;
+  padding: 22px;
+  background: var(--bg);
+  border: 1px solid var(--line-2);
+}
+.dispatch-copy { min-width: 0; flex: 1; }
+.dispatch-head {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+  color: var(--orange);
+  margin-bottom: 14px;
+}
+.dispatch h3 {
+  font-family: "Bowlby One", sans-serif;
+  font-size: clamp(22px, 3vw, 32px);
+  line-height: 1.05;
+  letter-spacing: 0.005em;
+  margin: 0 0 10px;
+  font-weight: 400;
+}
+.dispatch p {
+  margin: 0;
+  max-width: 42em;
+  color: var(--muted);
+  font-size: 16px;
+  line-height: 1.55;
+}
+.dispatch .btn { flex-shrink: 0; }
+@media (max-width: 800px) {
+  .dispatch { flex-direction: column; align-items: flex-start; }
+}
+
 .log {
   display: flex;
   flex-direction: column;
@@ -928,6 +980,7 @@ section { padding: 88px 0; position: relative; }
   transition: transform 0.15s;
 }
 .channel:hover .arrow { transform: translate(3px, -3px); }
+.channel.service { grid-column: 1 / -1; }
 @media (max-width: 700px) {
   .connect-grid { grid-template-columns: minmax(0, 1fr); }
 }
