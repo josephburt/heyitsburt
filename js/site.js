@@ -89,10 +89,14 @@
   const sMeter = document.getElementById("s-meter");
   const sReadout = document.getElementById("s-readout");
   const rigMode = document.getElementById("rig-mode");
+  const rigBand = document.getElementById("rig-band");
   const rigState = document.getElementById("rig-state");
   const liveLabel = document.getElementById("live-label");
   const liveDot = document.getElementById("live-dot");
   const opStatus = document.getElementById("op-status");
+  const nowFlag = document.getElementById("now-flag");
+  const kickerMode = document.getElementById("kicker-mode");
+  const bioMode = document.getElementById("bio-mode");
 
   let live = false;
   let tunedFreq = HOME_FREQ;
@@ -107,6 +111,43 @@
     if (vfoEl) vfoEl.textContent = formatFreq(tunedFreq);
   }
   setFreq(HOME_FREQ);
+  let tuneTo = setFreq;
+
+  const MODES = {
+    BUILD: {
+      freq: 433.92,
+      band: "ISM · UHF",
+      kicker: "DFW Listening Post",
+      bio: "I break things to understand them, build things to prove I can, and share everything along the way. From servers in my garage to signals in the air — if it runs on power and curiosity, I'm in."
+    },
+    TINK: {
+      freq: 915.0,
+      band: "ISM · 33cm",
+      kicker: "Garage workshop",
+      bio: "SBCs doing jobs they were never designed for, radios on the bench, and a workbench that never quite gets cleaned. If it has firmware, I'll flash it."
+    },
+    SIG: {
+      freq: 146.52,
+      band: "VHF · 2m",
+      kicker: "No-license watch",
+      bio: "There's something satisfying about making contact without asking permission first. Weather radio, ISM, FRS — if it rides the air, I'm listening."
+    },
+    CAP: {
+      freq: 27.185,
+      band: "CB · 11m",
+      kicker: "Ellis County desk",
+      bio: "The garage lab also pays rent: diagnostics, tune-ups, and house calls for Palmer, Waxahachie, and nearby Ellis County."
+    }
+  };
+
+  function applyMode(mode) {
+    const spec = MODES[mode] || MODES.BUILD;
+    if (rigMode) rigMode.textContent = mode;
+    if (rigBand) rigBand.textContent = spec.band;
+    if (kickerMode) kickerMode.textContent = spec.kicker;
+    if (bioMode) bioMode.textContent = spec.bio;
+    tuneTo(spec.freq);
+  }
 
   if (sMeter) {
     for (let i = 0; i < 12; i += 1) {
@@ -145,7 +186,7 @@
         b.classList.remove("is-active");
       });
       btn.classList.add("is-active");
-      if (rigMode) rigMode.textContent = btn.getAttribute("data-mode") || "BUILD";
+      applyMode(btn.getAttribute("data-mode") || "BUILD");
     });
   });
 
@@ -156,7 +197,10 @@
       document.body.classList.toggle("is-live", live);
       if (liveLabel) liveLabel.textContent = live ? "LIVE" : "STANDBY";
       if (rigState) rigState.textContent = live ? "LIVE" : "STANDBY";
-      if (opStatus && data.status) opStatus.textContent = data.status;
+      if (data.status) {
+        if (opStatus) opStatus.textContent = data.status;
+        if (nowFlag) nowFlag.textContent = data.status;
+      }
       if (liveDot) liveDot.classList.toggle("is-live", live);
     })
     .catch(function () {});
@@ -358,6 +402,14 @@
       sample(performance.now());
       paint();
     });
+
+    tuneTo = function (mhz) {
+      const clipped = Math.min(FREQ_MAX, Math.max(FREQ_MIN, mhz));
+      tunerX = freqToX(clipped);
+      setFreq(clipped);
+      sample(performance.now());
+      paint();
+    };
   }
 
   initSpectrum();

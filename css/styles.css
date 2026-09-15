@@ -259,6 +259,11 @@ body.is-live .live-cell .v { color: var(--phosphor); }
 }
 .kicker .bar { width: 28px; height: 2px; background: var(--phosphor); flex-shrink: 0; }
 .kicker .sep { opacity: 0.7; letter-spacing: 0; }
+.now-flag {
+  margin: -6px 0 22px;
+  color: var(--muted);
+  letter-spacing: 0.16em;
+}
 
 .lockup {
   margin: 0;
@@ -639,6 +644,21 @@ section { padding: 88px 0; position: relative; }
 }
 @media (max-width: 800px) {
   .about-grid { grid-template-columns: minmax(0, 1fr); }
+}
+
+.lab {
+  margin: 0 0 40px;
+}
+.lab img {
+  width: 100%;
+  height: auto;
+  border: 1px solid var(--line-2);
+  background: var(--bg);
+}
+.lab figcaption {
+  margin-top: 10px;
+  color: var(--muted);
+  letter-spacing: 0.14em;
 }
 
 .dispatch {
