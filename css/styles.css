@@ -724,6 +724,9 @@ section { padding: 88px 0; position: relative; }
   grid-template-columns: 1.25fr 0.75fr;
   gap: 14px;
 }
+.videos-grid:has(.channel-cta:only-child) {
+  grid-template-columns: minmax(0, 1fr);
+}
 .video-card {
   display: grid;
   grid-template-columns: 160px 1fr;
@@ -742,6 +745,37 @@ section { padding: 88px 0; position: relative; }
   padding: 0;
   overflow: hidden;
 }
+.video-card.featured.channel-cta {
+  grid-column: 1 / -1;
+  grid-row: auto;
+  grid-template-columns: minmax(240px, 0.7fr) minmax(0, 1fr);
+  align-items: stretch;
+}
+.thumb.placeholder {
+  display: grid;
+  place-items: center;
+  background:
+    radial-gradient(ellipse at 30% 40%, rgba(212, 138, 74, 0.18), transparent 55%),
+    radial-gradient(ellipse at 80% 80%, rgba(125, 255, 179, 0.1), transparent 50%),
+    var(--bg);
+}
+.play-mark {
+  width: 64px;
+  height: 64px;
+  border: 2px solid var(--phosphor);
+  border-radius: 999px;
+  position: relative;
+  box-shadow: 0 0 0 8px rgba(125, 255, 179, 0.08);
+}
+.play-mark::after {
+  content: "";
+  position: absolute;
+  left: 24px;
+  top: 20px;
+  border-style: solid;
+  border-width: 12px 0 12px 18px;
+  border-color: transparent transparent transparent var(--phosphor);
+}
 .video-card:hover { border-color: var(--orange); background: rgba(212, 138, 74, 0.05); }
 .video-card .thumb {
   aspect-ratio: 16 / 9;
@@ -758,6 +792,11 @@ section { padding: 88px 0; position: relative; }
 }
 .video-card:hover .thumb img { transform: scale(1.04); }
 .video-card.featured .video-body { padding: 22px; }
+.video-card.featured.channel-cta .video-body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
 .video-card .label {
   display: block;
   font: 500 10px/1 "JetBrains Mono", monospace;
@@ -786,7 +825,8 @@ section { padding: 88px 0; position: relative; }
   .video-card.featured { grid-column: auto; grid-row: auto; }
 }
 @media (max-width: 600px) {
-  .video-card { grid-template-columns: 1fr; }
+  .video-card,
+  .video-card.featured.channel-cta { grid-template-columns: 1fr; }
 }
 
 .cta-strip {

@@ -380,76 +380,6 @@
     } catch (_) { /* ignore quota */ }
   }
 
-  function renderRepos(repos) {
-    const grid = document.getElementById("projects-grid");
-    if (!grid || !Array.isArray(repos)) return;
-    grid.textContent = "";
-
-    const publicRepos = repos
-      .filter(function (repo) { return !repo.fork && !repo.private; })
-      .sort(function (a, b) {
-        return new Date(b.updated_at) - new Date(a.updated_at);
-      });
-
-    if (!publicRepos.length) {
-      grid.appendChild(el("p", { className: "projects-empty", text: "No public repositories found." }));
-      return;
-    }
-
-    grid.appendChild(el("div", { className: "log-head" }, [
-      el("span", { text: "Updated" }),
-      el("span", { text: "Project" }),
-      el("span", { text: "Mode" }),
-      el("span", { text: "Notes" })
-    ]));
-
-    publicRepos.forEach(function (repo) {
-      const language = repo.language || "Repo";
-      const stars = repo.stargazers_count > 0 ? "★ " + repo.stargazers_count : "public";
-      const description = repo.description || "No description provided.";
-      const when = formatDate(repo.updated_at);
-
-      const notes = el("div", {}, [
-        el("p", { text: description }),
-        el("span", { className: "status", text: stars })
-      ]);
-
-      const card = el("a", {
-        className: "log-row",
-        href: repo.html_url,
-        target: "_blank",
-        rel: "noopener"
-      }, [
-        el("span", { className: "when", text: when }),
-        el("h3", { text: repo.name }),
-        el("span", { className: "lang", text: language }),
-        notes
-      ]);
-      grid.appendChild(card);
-    });
-  }
-
-  function loadRepos() {
-    const cached = cacheGet("repos");
-    if (cached) {
-      renderRepos(cached);
-      return;
-    }
-    fetch("https://api.github.com/users/josephburt/repos?per_page=100&sort=updated")
-      .then(function (r) { return r.json(); })
-      .then(function (repos) {
-        if (!Array.isArray(repos)) throw new Error("bad repos");
-        cacheSet("repos", repos);
-        renderRepos(repos);
-      })
-      .catch(function () {
-        const grid = document.getElementById("projects-grid");
-        if (grid) {
-          grid.appendChild(el("p", { className: "projects-empty", text: "Could not load repositories from GitHub." }));
-        }
-      });
-  }
-
   const YOUTUBE_CHANNEL_ID = "UCL0Gvu2R42sKsmmLSIC0kHA";
   const YOUTUBE_RSS = "https://www.youtube.com/feeds/videos.xml?channel_id=" + YOUTUBE_CHANNEL_ID;
   const YOUTUBE_FEED_API = "https://api.rss2json.com/v1/api.json?rss_url=" + encodeURIComponent(YOUTUBE_RSS);
@@ -460,16 +390,37 @@
     return match ? match[1] : "";
   }
 
-  function renderVideos(videos) {
+  function renderChannelCta() {
     const grid = document.getElementById("videos-grid");
     if (!grid) return;
     grid.textContent = "";
+    grid.appendChild(el("a", {
+      className: "video-card featured channel-cta",
+      href: "https://www.youtube.com/@HeyItsBurt-Main",
+      target: "_blank",
+      rel: "noopener"
+    }, [
+      el("div", { className: "thumb placeholder", "aria-hidden": "true" }, [
+        el("span", { className: "play-mark" })
+      ]),
+      el("div", { className: "video-body" }, [
+        el("span", { className: "label", text: "// channel" }),
+        el("h3", { text: "Watch the builds on YouTube" }),
+        el("span", { className: "date", text: "@HeyItsBurt-Main" })
+      ])
+    ]));
+  }
 
-    if (!videos.length) {
-      grid.appendChild(el("p", { className: "videos-empty", text: "No videos found on the channel." }));
+  function renderVideos(videos) {
+    const grid = document.getElementById("videos-grid");
+    if (!grid) return;
+
+    if (!videos || !videos.length) {
+      renderChannelCta();
       return;
     }
 
+    grid.textContent = "";
     videos.slice(0, 3).forEach(function (video, i) {
       const card = el("a", {
         className: "video-card" + (i === 0 ? " featured" : ""),
@@ -491,16 +442,16 @@
   }
 
   function loadVideos() {
-    const cached = cacheGet("videos");
-    if (cached) {
+    const cached = cacheGet("videos-v2");
+    if (cached && Array.isArray(cached) && cached.length) {
       renderVideos(cached);
       return;
     }
     fetch(YOUTUBE_FEED_API)
       .then(function (r) { return r.json(); })
       .then(function (data) {
-        if (!data || data.status !== "ok" || !Array.isArray(data.items)) {
-          throw new Error("Invalid YouTube feed response");
+        if (!data || data.status !== "ok" || !Array.isArray(data.items) || !data.items.length) {
+          throw new Error("empty YouTube feed");
         }
         const videos = data.items.map(function (item) {
           const id = youtubeIdFromLink(item.link);
@@ -511,27 +462,13 @@
             thumbnail: item.thumbnail || (id ? "https://i.ytimg.com/vi/" + id + "/hqdefault.jpg" : "")
           };
         });
-        cacheSet("videos", videos);
+        cacheSet("videos-v2", videos);
         renderVideos(videos);
       })
       .catch(function () {
-        const grid = document.getElementById("videos-grid");
-        if (!grid) return;
-        grid.appendChild(el("a", {
-          className: "video-card featured",
-          href: "https://www.youtube.com/@HeyItsBurt-Main",
-          target: "_blank",
-          rel: "noopener"
-        }, [
-          el("div", { className: "video-body" }, [
-            el("span", { className: "label", text: "// channel" }),
-            el("h3", { text: "Watch the latest on YouTube" }),
-            el("span", { className: "date", text: "@HeyItsBurt-Main" })
-          ])
-        ]));
+        renderChannelCta();
       });
   }
 
-  loadRepos();
   loadVideos();
 })();
