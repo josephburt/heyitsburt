@@ -1,106 +1,15 @@
 (function () {
-  const TZ = "America/Chicago";
   const FREQ_MIN = 24;
   const FREQ_MAX = 1300;
   const HOME_FREQ = 433.92;
+  const PAPER = "#f6f1e6";
   const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-  const navToggle = document.querySelector(".nav-toggle");
-  const navMenu = document.getElementById("nav-menu");
-
-  if (navToggle && navMenu) {
-    navToggle.addEventListener("click", function () {
-      const open = navMenu.classList.toggle("open");
-      navToggle.setAttribute("aria-expanded", String(open));
-    });
-
-    navMenu.querySelectorAll("a").forEach(function (link) {
-      link.addEventListener("click", function () {
-        navMenu.classList.remove("open");
-        navToggle.setAttribute("aria-expanded", "false");
-      });
-    });
-
-    document.addEventListener("keydown", function (e) {
-      if (e.key === "Escape" && navMenu.classList.contains("open")) {
-        navMenu.classList.remove("open");
-        navToggle.setAttribute("aria-expanded", "false");
-        navToggle.focus();
-      }
-    });
-  }
-
-  function el(tag, attrs, children) {
-    const node = document.createElement(tag);
-    if (attrs) {
-      Object.entries(attrs).forEach(function ([k, v]) {
-        if (k === "className") node.className = v;
-        else if (k === "text") node.textContent = v;
-        else node.setAttribute(k, v);
-      });
-    }
-    (children || []).forEach(function (child) {
-      if (typeof child === "string") node.appendChild(document.createTextNode(child));
-      else if (child) node.appendChild(child);
-    });
-    return node;
-  }
-
-  function formatDate(iso) {
-    try {
-      return new Date(iso).toLocaleDateString(undefined, {
-        year: "numeric", month: "short", day: "numeric"
-      });
-    } catch (_) {
-      return "";
-    }
-  }
-
-  function pad(n) {
-    return String(n).padStart(2, "0");
-  }
-
-  function formatClock(date, timeZone) {
-    const parts = new Intl.DateTimeFormat("en-GB", {
-      timeZone: timeZone,
-      hour: "2-digit",
-      minute: "2-digit",
-      second: "2-digit",
-      hourCycle: "h23"
-    }).formatToParts(date);
-    const get = function (type) {
-      const part = parts.find(function (p) { return p.type === type; });
-      return part ? part.value : "00";
-    };
-    return get("hour") + ":" + get("minute") + ":" + get("second");
-  }
-
-  function tickClocks() {
-    const now = new Date();
-    const local = document.getElementById("clock-local");
-    const utc = document.getElementById("clock-utc");
-    if (local) local.textContent = formatClock(now, TZ);
-    if (utc) utc.textContent = pad(now.getUTCHours()) + ":" + pad(now.getUTCMinutes()) + ":" + pad(now.getUTCSeconds());
-  }
-  tickClocks();
-  setInterval(tickClocks, 1000);
+  const year = document.getElementById("y");
+  if (year) year.textContent = String(new Date().getFullYear());
 
   const vfoEl = document.getElementById("vfo");
-  const sMeter = document.getElementById("s-meter");
-  const sReadout = document.getElementById("s-readout");
-  const rigMode = document.getElementById("rig-mode");
-  const rigBand = document.getElementById("rig-band");
-  const rigState = document.getElementById("rig-state");
-  const liveLabel = document.getElementById("live-label");
-  const liveDot = document.getElementById("live-dot");
-  const opStatus = document.getElementById("op-status");
-  const nowFlag = document.getElementById("now-flag");
-  const kickerMode = document.getElementById("kicker-mode");
-  const bioMode = document.getElementById("bio-mode");
-
-  let live = false;
   let tunedFreq = HOME_FREQ;
-  let signalLevel = 0.42;
 
   function formatFreq(mhz) {
     return mhz.toFixed(3);
@@ -111,99 +20,6 @@
     if (vfoEl) vfoEl.textContent = formatFreq(tunedFreq);
   }
   setFreq(HOME_FREQ);
-  let tuneTo = setFreq;
-
-  const MODES = {
-    BUILD: {
-      freq: 433.92,
-      band: "ISM · UHF",
-      kicker: "DFW Listening Post",
-      bio: "I break things to understand them, build things to prove I can, and share everything along the way. From servers in my garage to signals in the air — if it runs on power and curiosity, I'm in."
-    },
-    TINK: {
-      freq: 915.0,
-      band: "ISM · 33cm",
-      kicker: "Garage workshop",
-      bio: "SBCs doing jobs they were never designed for, radios on the bench, and a workbench that never quite gets cleaned. If it has firmware, I'll flash it."
-    },
-    SIG: {
-      freq: 146.52,
-      band: "VHF · 2m",
-      kicker: "No-license watch",
-      bio: "There's something satisfying about making contact without asking permission first. Weather radio, ISM, FRS — if it rides the air, I'm listening."
-    },
-    CAP: {
-      freq: 27.185,
-      band: "CB · 11m",
-      kicker: "Ellis County desk",
-      bio: "The garage lab also pays rent: diagnostics, tune-ups, and house calls for Palmer, Waxahachie, and nearby Ellis County."
-    }
-  };
-
-  function applyMode(mode) {
-    const spec = MODES[mode] || MODES.BUILD;
-    if (rigMode) rigMode.textContent = mode;
-    if (rigBand) rigBand.textContent = spec.band;
-    if (kickerMode) kickerMode.textContent = spec.kicker;
-    if (bioMode) bioMode.textContent = spec.bio;
-    tuneTo(spec.freq);
-  }
-
-  if (sMeter) {
-    for (let i = 0; i < 12; i += 1) {
-      sMeter.appendChild(document.createElement("span"));
-    }
-  }
-
-  function renderMeter(level) {
-    const bars = sMeter ? sMeter.querySelectorAll("span") : [];
-    const on = Math.max(1, Math.round(level * bars.length));
-    bars.forEach(function (bar, i) {
-      bar.classList.toggle("on", i < on);
-    });
-    if (sReadout) sReadout.textContent = "S" + Math.min(9, Math.max(1, Math.round(level * 9)));
-  }
-
-  function meterLoop() {
-    const wobble = 0.04 * Math.sin(Date.now() / 420) + (Math.random() - 0.5) * 0.03;
-    const target = live ? 0.82 : 0.38;
-    signalLevel += (target + wobble - signalLevel) * 0.12;
-    renderMeter(signalLevel);
-    if (!reduceMotion) requestAnimationFrame(meterLoop);
-  }
-  renderMeter(signalLevel);
-  if (!reduceMotion) requestAnimationFrame(meterLoop);
-  else {
-    setInterval(function () {
-      signalLevel = live ? 0.8 : 0.4;
-      renderMeter(signalLevel);
-    }, 2000);
-  }
-
-  document.querySelectorAll(".roles button").forEach(function (btn) {
-    btn.addEventListener("click", function () {
-      document.querySelectorAll(".roles button").forEach(function (b) {
-        b.classList.remove("is-active");
-      });
-      btn.classList.add("is-active");
-      applyMode(btn.getAttribute("data-mode") || "BUILD");
-    });
-  });
-
-  fetch("data/now.json")
-    .then(function (r) { return r.json(); })
-    .then(function (data) {
-      live = Boolean(data.live);
-      document.body.classList.toggle("is-live", live);
-      if (liveLabel) liveLabel.textContent = live ? "LIVE" : "STANDBY";
-      if (rigState) rigState.textContent = live ? "LIVE" : "STANDBY";
-      if (data.status) {
-        if (opStatus) opStatus.textContent = data.status;
-        if (nowFlag) nowFlag.textContent = data.status;
-      }
-      if (liveDot) liveDot.classList.toggle("is-live", live);
-    })
-    .catch(function () {});
 
   function initSpectrum() {
     const canvas = document.getElementById("spectrum");
@@ -233,7 +49,6 @@
     let w = 0;
     let h = 0;
     let bins = new Float32Array(128);
-    let running = true;
     let inView = true;
     let tunerX = freqToX(HOME_FREQ);
     let acc = 0;
@@ -249,13 +64,13 @@
       const scopeH = Math.max(1, Math.floor(h * 0.34));
       water.width = w;
       water.height = Math.max(1, h - scopeH);
-      waterCtx.fillStyle = "#07090c";
+      waterCtx.fillStyle = PAPER;
       waterCtx.fillRect(0, 0, water.width, water.height);
       for (let i = 0; i < Math.min(120, water.height); i += 1) {
         sample(i * 24);
         shiftWater();
       }
-      paint(0);
+      paint();
     }
 
     function sample(t) {
@@ -273,18 +88,18 @@
         const ds = (x - scan) / 0.012;
         v += 0.22 * Math.exp(-ds * ds);
         const dtune = (x - tunerX) / 0.004;
-        v += (live ? 0.28 : 0.12) * Math.exp(-dtune * dtune);
+        v += 0.12 * Math.exp(-dtune * dtune);
         bins[i] = Math.min(1, v);
       }
     }
 
     function heat(t) {
       const stops = [
-        [7, 9, 12],
-        [18, 32, 58],
-        [212, 138, 74],
-        [243, 234, 220],
-        [125, 255, 179]
+        [246, 241, 230],
+        [239, 232, 216],
+        [180, 168, 140],
+        [26, 39, 68],
+        [158, 42, 43]
       ];
       const scaled = Math.max(0, Math.min(1, t)) * (stops.length - 1);
       const i = Math.min(stops.length - 2, Math.floor(scaled));
@@ -320,8 +135,9 @@
     function paint() {
       const scopeH = Math.max(1, Math.floor(h * 0.34));
       const n = bins.length;
+      const dpr = window.devicePixelRatio || 1;
 
-      ctx.fillStyle = "#07090c";
+      ctx.fillStyle = PAPER;
       ctx.fillRect(0, 0, w, h);
       ctx.drawImage(water, 0, scopeH);
 
@@ -329,43 +145,43 @@
       ctx.moveTo(0, scopeH);
       for (let i = 0; i < n; i += 1) {
         const x = (i / (n - 1)) * w;
-        const y = scopeH - bins[i] * (scopeH - 10 * (window.devicePixelRatio || 1));
+        const y = scopeH - bins[i] * (scopeH - 10 * dpr);
         ctx.lineTo(x, y);
       }
       ctx.lineTo(w, scopeH);
       ctx.closePath();
       const fill = ctx.createLinearGradient(0, 0, 0, scopeH);
-      fill.addColorStop(0, "rgba(125, 255, 179, 0.32)");
-      fill.addColorStop(0.55, "rgba(212, 138, 74, 0.16)");
-      fill.addColorStop(1, "rgba(7, 9, 12, 0)");
+      fill.addColorStop(0, "rgba(26, 39, 68, 0.28)");
+      fill.addColorStop(0.55, "rgba(158, 42, 43, 0.12)");
+      fill.addColorStop(1, "rgba(246, 241, 230, 0)");
       ctx.fillStyle = fill;
       ctx.fill();
 
       ctx.beginPath();
       for (let i = 0; i < n; i += 1) {
         const x = (i / (n - 1)) * w;
-        const y = scopeH - bins[i] * (scopeH - 10 * (window.devicePixelRatio || 1));
+        const y = scopeH - bins[i] * (scopeH - 10 * dpr);
         if (i === 0) ctx.moveTo(x, y);
         else ctx.lineTo(x, y);
       }
-      ctx.strokeStyle = "rgba(125, 255, 179, 0.9)";
-      ctx.lineWidth = Math.max(1, window.devicePixelRatio || 1);
+      ctx.strokeStyle = "rgba(26, 39, 68, 0.85)";
+      ctx.lineWidth = Math.max(1, dpr);
       ctx.stroke();
 
       const tx = tunerX * w;
-      ctx.strokeStyle = "rgba(243, 234, 220, 0.55)";
-      ctx.lineWidth = Math.max(1, window.devicePixelRatio || 1);
+      ctx.strokeStyle = "rgba(158, 42, 43, 0.55)";
+      ctx.lineWidth = Math.max(1, dpr);
       ctx.beginPath();
       ctx.moveTo(tx, 0);
       ctx.lineTo(tx, h);
       ctx.stroke();
-      ctx.fillStyle = "rgba(212, 138, 74, 0.95)";
-      const mark = 7 * (window.devicePixelRatio || 1);
-      ctx.fillRect(tx - mark / 2, 8 * (window.devicePixelRatio || 1), mark, mark);
+      ctx.fillStyle = "rgba(158, 42, 43, 0.95)";
+      const mark = 7 * dpr;
+      ctx.fillRect(tx - mark / 2, 8 * dpr, mark, mark);
     }
 
     function loop(t) {
-      running = inView && document.visibilityState === "visible" && !reduceMotion;
+      const running = inView && document.visibilityState === "visible" && !reduceMotion;
       if (running) {
         if (!lastT) lastT = t;
         const dt = t - lastT;
@@ -383,6 +199,10 @@
 
     resize();
     if (!reduceMotion) requestAnimationFrame(loop);
+    else {
+      sample(0);
+      paint();
+    }
 
     window.addEventListener("resize", resize);
     document.addEventListener("visibilitychange", function () {
@@ -402,125 +222,7 @@
       sample(performance.now());
       paint();
     });
-
-    tuneTo = function (mhz) {
-      const clipped = Math.min(FREQ_MAX, Math.max(FREQ_MIN, mhz));
-      tunerX = freqToX(clipped);
-      setFreq(clipped);
-      sample(performance.now());
-      paint();
-    };
   }
 
   initSpectrum();
-
-  function cacheGet(key) {
-    try {
-      const raw = sessionStorage.getItem(key);
-      if (!raw) return null;
-      const parsed = JSON.parse(raw);
-      if (Date.now() - parsed.t > 15 * 60 * 1000) return null;
-      return parsed.v;
-    } catch (_) {
-      return null;
-    }
-  }
-
-  function cacheSet(key, value) {
-    try {
-      sessionStorage.setItem(key, JSON.stringify({ t: Date.now(), v: value }));
-    } catch (_) { /* ignore quota */ }
-  }
-
-  const YOUTUBE_CHANNEL_ID = "UCL0Gvu2R42sKsmmLSIC0kHA";
-  const YOUTUBE_RSS = "https://www.youtube.com/feeds/videos.xml?channel_id=" + YOUTUBE_CHANNEL_ID;
-  const YOUTUBE_FEED_API = "https://api.rss2json.com/v1/api.json?rss_url=" + encodeURIComponent(YOUTUBE_RSS);
-
-  function youtubeIdFromLink(link) {
-    if (!link) return "";
-    const match = link.match(/[?&]v=([^&]+)/);
-    return match ? match[1] : "";
-  }
-
-  function renderChannelCta() {
-    const grid = document.getElementById("videos-grid");
-    if (!grid) return;
-    grid.textContent = "";
-    grid.appendChild(el("a", {
-      className: "video-card featured channel-cta",
-      href: "https://www.youtube.com/@HeyItsBurt-Main",
-      target: "_blank",
-      rel: "noopener"
-    }, [
-      el("div", { className: "thumb placeholder", "aria-hidden": "true" }, [
-        el("span", { className: "play-mark" })
-      ]),
-      el("div", { className: "video-body" }, [
-        el("span", { className: "label", text: "// channel" }),
-        el("h3", { text: "Watch the builds on YouTube" }),
-        el("span", { className: "date", text: "@HeyItsBurt-Main" })
-      ])
-    ]));
-  }
-
-  function renderVideos(videos) {
-    const grid = document.getElementById("videos-grid");
-    if (!grid) return;
-
-    if (!videos || !videos.length) {
-      renderChannelCta();
-      return;
-    }
-
-    grid.textContent = "";
-    videos.slice(0, 3).forEach(function (video, i) {
-      const card = el("a", {
-        className: "video-card" + (i === 0 ? " featured" : ""),
-        href: video.url,
-        target: "_blank",
-        rel: "noopener"
-      }, [
-        el("div", { className: "thumb" }, [
-          el("img", { src: video.thumbnail, alt: "", loading: "lazy" })
-        ]),
-        el("div", { className: "video-body" }, [
-          el("span", { className: "label", text: i === 0 ? "// latest transmission" : "// archive" }),
-          el("h3", { text: video.title }),
-          el("span", { className: "date", text: formatDate(video.published) })
-        ])
-      ]);
-      grid.appendChild(card);
-    });
-  }
-
-  function loadVideos() {
-    const cached = cacheGet("videos-v2");
-    if (cached && Array.isArray(cached) && cached.length) {
-      renderVideos(cached);
-      return;
-    }
-    fetch(YOUTUBE_FEED_API)
-      .then(function (r) { return r.json(); })
-      .then(function (data) {
-        if (!data || data.status !== "ok" || !Array.isArray(data.items) || !data.items.length) {
-          throw new Error("empty YouTube feed");
-        }
-        const videos = data.items.map(function (item) {
-          const id = youtubeIdFromLink(item.link);
-          return {
-            title: item.title || "Untitled video",
-            url: item.link,
-            published: item.pubDate,
-            thumbnail: item.thumbnail || (id ? "https://i.ytimg.com/vi/" + id + "/hqdefault.jpg" : "")
-          };
-        });
-        cacheSet("videos-v2", videos);
-        renderVideos(videos);
-      })
-      .catch(function () {
-        renderChannelCta();
-      });
-  }
-
-  loadVideos();
 })();

@@ -2,32 +2,29 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>Hey It's Burt — Builder · Tinkerer · Signal Chaser · Capitalist</title>
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="description" content="Joseph Burt — builder, tinkerer, signal chaser. Home lab in the DFW area, plus computer repair and local tech work for Ellis County, Texas.">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Hey, it's Burt</title>
+  <meta name="description" content="Joseph Burt — builder, tinkerer, and signal chaser in the DFW area. Projects, experiments, and computer repair for Ellis County, Texas.">
   <link rel="canonical" href="https://heyitsburt.com/">
-  <meta name="theme-color" content="#07090c">
+  <meta name="theme-color" content="#1a2744">
 
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://heyitsburt.com/">
-  <meta property="og:title" content="Hey It's Burt">
-  <meta property="og:description" content="Builder · Tinkerer · Signal Chaser · Capitalist. DFW listening post — computer repair for Ellis County, Texas.">
+  <meta property="og:title" content="Hey, it's Burt">
+  <meta property="og:description" content="Builder, tinkerer, and signal chaser in the DFW area. Computer repair for Ellis County, Texas.">
   <meta property="og:image" content="https://heyitsburt.com/images/og-image.png">
   <meta property="og:image:type" content="image/png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
-  <meta property="og:image:alt" content="Hey It's Burt — DFW listening post">
+  <meta property="og:image:alt" content="Hey, it's Burt">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Hey It's Burt">
-  <meta name="twitter:description" content="Builder · Tinkerer · Signal Chaser · Capitalist. DFW listening post — computer repair for Ellis County, Texas.">
+  <meta name="twitter:title" content="Hey, it's Burt">
+  <meta name="twitter:description" content="Builder, tinkerer, and signal chaser in the DFW area. Computer repair for Ellis County, Texas.">
   <meta name="twitter:image" content="https://heyitsburt.com/images/og-image.png">
-  <meta name="twitter:image:alt" content="Hey It's Burt — DFW listening post">
+  <meta name="twitter:image:alt" content="Hey, it's Burt">
 
   <link rel="icon" href="images/favicon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="images/favicon.svg">
-
-  <link rel="preload" href="fonts/a2d7666b-e78f-43c9-97ad-c1cb5bf07f13.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="css/fonts.css">
   <link rel="stylesheet" href="css/themes.css">
   <link rel="stylesheet" href="css/styles.css">
 
@@ -36,10 +33,10 @@
     "@context": "https://schema.org",
     "@type": "Person",
     "name": "Joseph Burt",
-    "alternateName": "Hey It's Burt",
+    "alternateName": "Hey, it's Burt",
     "url": "https://heyitsburt.com/",
     "jobTitle": "Builder",
-    "description": "Builder, tinkerer, signal chaser, and capitalist based in the DFW area. Computer repair and local tech work for Ellis County, Texas.",
+    "description": "Builder, tinkerer, and signal chaser based in the Dallas–Fort Worth area. Computer repair for Ellis County, Texas.",
     "homeLocation": {
       "@type": "Place",
       "name": "Dallas–Fort Worth"
@@ -55,372 +52,154 @@
   </script>
 </head>
 <body>
-  <a class="skip-link" href="#main">Skip to content</a>
+  <a class="skip" href="#main">Skip to content</a>
 
-  <div class="grain" aria-hidden="true"></div>
-
-  <header class="station-bar" id="top">
-    <div class="station-bar-inner">
-      <a class="nav-mark" href="#top" aria-label="Hey It's Burt, back to top">BURT<span class="o">.</span></a>
-
-      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-menu">
-        <span aria-hidden="true">☰</span>
-        <span>Menu</span>
-      </button>
-
-      <nav class="nav-links" id="nav-menu" aria-label="Primary">
-        <a href="#about"><span class="idx">01</span> About</a>
-        <a href="#projects"><span class="idx">02</span> Projects</a>
-        <a href="#videos"><span class="idx">03</span> Videos</a>
-        <a href="#connect"><span class="idx">04</span> Connect</a>
+  <header class="site-header">
+    <div class="wrap bar">
+      <a class="mark" href="#top">
+        <span class="mark-name">HEY, IT'S BURT</span>
+        <span class="mark-sub">Dallas–Fort Worth</span>
+      </a>
+      <nav class="nav" aria-label="Primary">
+        <a href="#about">About</a>
+        <a href="#projects">Projects</a>
+        <a class="nav-cta" href="#connect">Connect</a>
       </nav>
-
-      <div class="station-status">
-        <div class="status-cell">
-          <span class="k">LOC</span>
-          <span class="v">DFW · TX</span>
-        </div>
-        <div class="status-cell" aria-live="polite">
-          <span class="k">LOCAL</span>
-          <time class="v" id="clock-local">--:--:--</time>
-        </div>
-        <div class="status-cell">
-          <span class="k">UTC</span>
-          <time class="v" id="clock-utc">--:--:--</time>
-        </div>
-        <div class="status-cell live-cell">
-          <span class="live-dot" id="live-dot" aria-hidden="true"></span>
-          <span class="v" id="live-label">STANDBY</span>
-        </div>
-      </div>
     </div>
   </header>
 
   <main id="main">
-    <section class="hero" aria-label="Station identification">
+    <section class="hero" id="top" aria-label="Introduction">
       <canvas class="spectrum" id="spectrum" aria-hidden="true"></canvas>
       <div class="hero-shade" aria-hidden="true"></div>
 
       <div class="wrap hero-grid">
-        <div class="hero-copy">
-          <p class="kicker mono">
-            <span class="bar" aria-hidden="true"></span>
-            <span id="kicker-mode">DFW Listening Post</span>
-            <span class="sep" aria-hidden="true">·</span>
-            <span class="kicker-geo">Dallas–Fort Worth · Ellis County</span>
-          </p>
-          <p class="now-flag mono" id="now-flag">On the bench — garage lab, radios, listening post HUD</p>
-
-          <h1 class="lockup">HEY<span class="o">.</span><br>IT'S<br>BURT<span class="o">.</span></h1>
-
-          <ul class="roles" aria-label="Roles">
-            <li><button type="button" data-mode="BUILD" class="is-active">Builder</button></li>
-            <li><button type="button" data-mode="TINK">Tinkerer</button></li>
-            <li><button type="button" data-mode="SIG">Signal Chaser</button></li>
-            <li><button type="button" data-mode="CAP">Capitalist</button></li>
-          </ul>
-
-          <p class="bio"><span id="bio-mode">I break things to understand them, build things to prove I can, and share everything along the way. From servers in my garage to signals in the air — if it runs on power and curiosity, I'm in.</span> Need a computer fixed in Ellis County? That's the garage lab too: <a href="https://services.burtlabs.org/" target="_blank" rel="noopener">services.burtlabs.org</a>.</p>
-
-          <div class="ctas">
-            <a class="btn primary" href="#connect">Find me online</a>
-            <a class="btn" href="https://services.burtlabs.org/" target="_blank" rel="noopener">Ellis County repair ↗</a>
-            <a class="btn" href="https://github.com/josephburt" target="_blank" rel="noopener">GitHub ↗</a>
+        <div>
+          <p class="eyebrow">Dallas–Fort Worth</p>
+          <h1>Hey, it's Burt.</h1>
+          <p class="lede">I'm Joseph Burt. I build, tinker, and chase signals — and I share the work. Computer repair for Ellis County lives at <a href="https://services.burtlabs.org/" rel="noopener">services.burtlabs.org</a>.</p>
+          <div class="hero-actions">
+            <a class="btn primary" href="#connect">Connect</a>
+            <a class="text-link" href="#projects">View projects</a>
           </div>
         </div>
 
-        <aside class="rig" aria-label="Receiver readout">
-          <div class="rig-ticks" aria-hidden="true"></div>
-          <div class="rig-head">
-            <span class="mono">RX</span>
-            <span class="mono" id="rig-band">ISM · UHF</span>
-            <span class="mono" id="rig-state">STANDBY</span>
+        <aside class="rig" aria-label="Receiver">
+          <p class="rig-label">Frequency</p>
+          <div class="rig-freq">
+            <strong id="vfo">433.920</strong>
+            <span>MHz</span>
           </div>
-
-          <div class="vfo">
-            <span class="vfo-label mono">FREQ</span>
-            <div class="vfo-row">
-              <span class="vfo-digits" id="vfo">433.920</span>
-              <span class="vfo-unit mono">MHz</span>
-            </div>
-            <p class="vfo-hint mono">Click the waterfall to tune</p>
-          </div>
-
-          <div class="meter">
-            <div class="meter-head">
-              <span class="mono">SIGNAL</span>
-              <span class="mono" id="s-readout">S5</span>
-            </div>
-            <div class="meter-bars" id="s-meter" aria-hidden="true"></div>
-          </div>
-
-          <dl class="rig-meta">
-            <div>
-              <dt>LOC</dt>
-              <dd>DFW area</dd>
-            </div>
-            <div>
-              <dt>MODE</dt>
-              <dd id="rig-mode">BUILD</dd>
-            </div>
-            <div>
-              <dt>OP</dt>
-              <dd>Joseph Burt</dd>
-            </div>
-            <div>
-              <dt>NET</dt>
-              <dd>Online everywhere</dd>
-            </div>
-          </dl>
+          <p class="rig-hint">Click the waterfall to tune.</p>
         </aside>
       </div>
 
       <div class="freq-scale wrap" aria-hidden="true">
         <span>24 MHz</span>
-        <span class="scale-line"></span>
+        <span class="line"></span>
         <span>433.92</span>
-        <span class="scale-line"></span>
+        <span class="line"></span>
         <span>1300 MHz</span>
       </div>
     </section>
 
-    <section id="about" class="about">
+    <section id="about" class="section">
       <div class="wrap">
         <header class="section-head">
-          <span class="num">01</span>
-          <div>
-            <h2>About</h2>
-            <p class="meta">Operator notes — who's behind the keyboard</p>
-          </div>
+          <p class="eyebrow">About</p>
+          <h2>Builder, tinkerer, signal chaser.</h2>
         </header>
-
-        <figure class="lab">
-          <img src="images/lab-ident.jpg" width="1280" height="720" alt="The garage lab: three upper monitors on black reading HEY. IT'S BURT., a lower monitor of television static, radios, and a wooden workbench under Christmas lights.">
-          <figcaption class="mono">Garage lab · DFW listening post</figcaption>
-        </figure>
-
-        <div class="about-grid">
-          <div class="about-prose">
-            <p>I'm <em>Joseph Burt</em> — a builder based in the DFW area who treats the garage like a workshop and the workshop like a lab. Servers on the shelf, radios on the bench, and too many single-board computers doing jobs they were never designed for.</p>
-            <p>Most of what I do lives at the intersection of <em>hardware, software, and curiosity</em>. I self-host because I want to understand the stack. I stream because building in public keeps me honest. I chase signals because there's something satisfying about making contact without asking permission first.</p>
-            <p>If there's a through-line, it's simple: <em>learn it, break it, rebuild it, share it</em>. This site is where those threads come together — projects, experiments, streams, and whatever I'm obsessing over this week.</p>
-            <p>When someone nearby needs a machine diagnosed or brought back, that work lives at <a href="https://services.burtlabs.org/" target="_blank" rel="noopener">Burt Labs</a> — computer repair and local tech help for Ellis County, including Palmer, Waxahachie, and nearby.</p>
-          </div>
-
-          <aside class="op-card">
-            <div class="op-card-head">
-              <span class="mono">OPERATOR CARD</span>
-              <span class="mono">EST. 2026</span>
-            </div>
-            <p class="op-name">Joseph Burt</p>
-            <p class="op-aka">aka Hey It's Burt</p>
-            <dl>
-              <div>
-                <dt>Location</dt>
-                <dd>Dallas–Fort Worth</dd>
-              </div>
-              <div>
-                <dt>Timezone</dt>
-                <dd>America/Chicago</dd>
-              </div>
-              <div>
-                <dt>Workshop</dt>
-                <dd>Garage lab · radios · SBCs</dd>
-              </div>
-              <div>
-                <dt>Service</dt>
-                <dd>Ellis County repair</dd>
-              </div>
-              <div>
-                <dt>Method</dt>
-                <dd>Learn · break · rebuild · share</dd>
-              </div>
-              <div>
-                <dt>Status</dt>
-                <dd id="op-status">On the bench — garage lab, radios, listening post HUD</dd>
-              </div>
-            </dl>
-          </aside>
-        </div>
-
-        <aside class="dispatch" aria-label="Ellis County computer repair">
-          <div class="dispatch-copy">
-            <div class="dispatch-head">
-              <span class="mono">Local work</span>
-              <span class="mono">Ellis County · TX</span>
-            </div>
-            <h3>Computer repair from the garage lab.</h3>
-            <p>Diagnostics, tune-ups, house calls, and setups for homes and small shops in Palmer, Waxahachie, and nearby Ellis County. Request service at the Burt Labs desk.</p>
-          </div>
-          <a class="btn primary" href="https://services.burtlabs.org/" target="_blank" rel="noopener">services.burtlabs.org ↗</a>
-        </aside>
-      </div>
-    </section>
-
-    <section id="projects">
-      <div class="wrap">
-        <header class="section-head">
-          <span class="num">02</span>
-          <div>
-            <h2>Projects</h2>
-            <p class="meta">Station log — featured builds</p>
-          </div>
-          <a class="section-link" href="https://github.com/josephburt" target="_blank" rel="noopener">github.com/josephburt ↗</a>
-        </header>
-        <div class="log" id="projects-grid">
-          <div class="log-head">
-            <span>Updated</span>
-            <span>Project</span>
-            <span>Mode</span>
-            <span>Notes</span>
-          </div>
-
-          <a class="log-row" href="/nes/">
-            <span class="when">Sep 15, 2026</span>
-            <h3>GROK NES</h3>
-            <span class="lang">Play</span>
-            <div>
-              <p>In-browser NES emulator — drop in a .nes ROM and play it on this site.</p>
-              <span class="status">Live</span>
-            </div>
-          </a>
-
-          <a class="log-row" href="https://pbre.burtlabs.org/" target="_blank" rel="noopener">
-            <span class="when">Aug 23, 2026</span>
-            <h3>PBRE</h3>
-            <span class="lang">TypeScript</span>
-            <div>
-              <p>Puffing Bluetooth Re-Engineered — open source web app to control Pax 3 vaporizers.</p>
-              <span class="status">Live</span>
-            </div>
-          </a>
-
-          <a class="log-row" href="https://services.burtlabs.org/" target="_blank" rel="noopener">
-            <span class="when">Sep 15, 2026</span>
-            <h3>Burt Labs</h3>
-            <span class="lang">HTML</span>
-            <div>
-              <p>Computer repair and support for Ellis County, Texas — Palmer, Waxahachie, and nearby. Request service at services.burtlabs.org.</p>
-              <span class="status">Live</span>
-            </div>
-          </a>
+        <div class="about-copy">
+          <p>I'm Joseph Burt, based in the DFW area. I break things to understand them, build things to prove I can, and share what I learn.</p>
+          <p>Most of what I do sits at the intersection of hardware, software, and curiosity. This site is the homepage for that work — projects, experiments, and whatever I'm on this week.</p>
+          <p>If a neighbor needs a computer diagnosed or brought back, that's <a href="https://services.burtlabs.org/" rel="noopener">Burt Labs</a> — repair for Palmer, Waxahachie, and nearby Ellis County.</p>
         </div>
       </div>
     </section>
 
-    <section id="videos" class="videos">
+    <section id="projects" class="section muted">
       <div class="wrap">
         <header class="section-head">
-          <span class="num">03</span>
-          <div>
-            <h2>Latest Videos</h2>
-            <p class="meta">Transmissions — from the channel</p>
-          </div>
-          <a class="section-link" href="https://www.youtube.com/@HeyItsBurt-Main" target="_blank" rel="noopener">YouTube ↗</a>
+          <p class="eyebrow">Projects</p>
+          <h2>What's live</h2>
         </header>
-        <div class="videos-grid" id="videos-grid" aria-live="polite">
-          <a class="video-card featured channel-cta" href="https://www.youtube.com/@HeyItsBurt-Main" target="_blank" rel="noopener">
-            <div class="thumb placeholder" aria-hidden="true">
-              <span class="play-mark"></span>
-            </div>
-            <div class="video-body">
-              <span class="label">// channel</span>
-              <h3>Watch the builds on YouTube</h3>
-              <span class="date">@HeyItsBurt-Main</span>
-            </div>
-          </a>
-        </div>
+        <table class="list">
+          <thead>
+            <tr>
+              <th>Project</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                <a href="/nes/">
+                  <span class="name">GROK NES</span>
+                  <span class="desc">In-browser NES emulator. Drop in a .nes ROM and play it here.</span>
+                </a>
+              </td>
+              <td>Live</td>
+            </tr>
+            <tr>
+              <td>
+                <a href="https://pbre.burtlabs.org/" rel="noopener">
+                  <span class="name">PBRE</span>
+                  <span class="desc">Open-source web app to control Pax 3 vaporizers.</span>
+                </a>
+              </td>
+              <td>Live</td>
+            </tr>
+            <tr>
+              <td>
+                <a href="https://services.burtlabs.org/" rel="noopener">
+                  <span class="name">Burt Labs</span>
+                  <span class="desc">Computer repair for Ellis County, Texas.</span>
+                </a>
+              </td>
+              <td>Live</td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </section>
 
-    <section class="cta-strip" aria-label="Live streams">
-      <div class="wrap cta-inner">
-        <div>
-          <p class="mono kicker-inline"><span class="live-dot" aria-hidden="true"></span> Simulcast</p>
-          <h2>Catch the content live.</h2>
-          <p>Streaming, building, and figuring it out in public — simulcast on YouTube and X at the same time.</p>
-        </div>
-        <div class="ctas">
-          <a class="btn primary" href="https://www.youtube.com/@HeyItsBurt-Main" target="_blank" rel="noopener">Watch on YouTube ↗</a>
-          <a class="btn" href="https://x.com/josephburt" target="_blank" rel="noopener">Watch on X ↗</a>
-        </div>
-      </div>
-    </section>
-
-    <section id="connect">
+    <section id="connect" class="section">
       <div class="wrap">
         <header class="section-head">
-          <span class="num">04</span>
-          <div>
-            <h2>Let's Connect</h2>
-            <p class="meta">Frequencies — find me online</p>
-          </div>
+          <p class="eyebrow">Connect</p>
+          <h2>Find me online</h2>
+          <p>YouTube and X are where I stream. GitHub is the source. Burt Labs is the shop.</p>
         </header>
-
-        <div class="connect-grid">
-          <a class="channel service" href="https://services.burtlabs.org/" target="_blank" rel="noopener">
-            <span class="ch-id mono">CH 00</span>
-            <span class="platform mono">Burt Labs</span>
-            <span class="handle">Ellis County repair</span>
-            <span class="ch-note">Computer repair and local tech work — Palmer, Waxahachie, and nearby</span>
-            <span class="arrow" aria-hidden="true">↗</span>
-          </a>
-
-          <a class="channel" rel="me noopener" href="https://www.youtube.com/@HeyItsBurt-Main" target="_blank">
-            <span class="ch-id mono">CH 01</span>
-            <span class="platform mono">YouTube</span>
+        <div class="connect">
+          <a href="https://www.youtube.com/@HeyItsBurt-Main" rel="me noopener">
+            <span class="platform">YouTube</span>
             <span class="handle">@HeyItsBurt-Main</span>
-            <span class="ch-note">Watch the builds</span>
-            <span class="arrow" aria-hidden="true">↗</span>
           </a>
-
-          <a class="channel" rel="me noopener" href="https://x.com/josephburt" target="_blank">
-            <span class="ch-id mono">CH 02</span>
-            <span class="platform mono">X / Twitter</span>
+          <a href="https://x.com/josephburt" rel="me noopener">
+            <span class="platform">X</span>
             <span class="handle">@josephburt</span>
-            <span class="ch-note">Signal in the timeline</span>
-            <span class="arrow" aria-hidden="true">↗</span>
           </a>
-
-          <a class="channel" rel="me noopener" href="https://www.linkedin.com/in/heyitsburt/" target="_blank">
-            <span class="ch-id mono">CH 03</span>
-            <span class="platform mono">LinkedIn</span>
-            <span class="handle">in/heyitsburt</span>
-            <span class="ch-note">The professional net</span>
-            <span class="arrow" aria-hidden="true">↗</span>
-          </a>
-
-          <a class="channel" rel="me noopener" href="https://github.com/josephburt" target="_blank">
-            <span class="ch-id mono">CH 04</span>
-            <span class="platform mono">GitHub</span>
+          <a href="https://github.com/josephburt" rel="me noopener">
+            <span class="platform">GitHub</span>
             <span class="handle">josephburt</span>
-            <span class="ch-note">Source in the clear</span>
-            <span class="arrow" aria-hidden="true">↗</span>
+          </a>
+          <a href="https://www.linkedin.com/in/heyitsburt/" rel="me noopener">
+            <span class="platform">LinkedIn</span>
+            <span class="handle">in/heyitsburt</span>
+          </a>
+          <a href="https://services.burtlabs.org/" rel="noopener">
+            <span class="platform">Ellis County repair</span>
+            <span class="handle">services.burtlabs.org</span>
           </a>
         </div>
       </div>
     </section>
   </main>
 
-  <footer>
-    <div class="wrap">
-      <div class="foot-spectrum" aria-hidden="true"></div>
-      <div class="foot-row">
-        <div class="foot-mark">BURT<span class="o">.</span></div>
-        <div class="foot-meta">
-          <p class="est">Hey It's Burt<br>DFW Listening Post<br>Dallas–Fort Worth · Ellis County</p>
-        </div>
-      </div>
-      <div class="foot-bottom">
-        <span>© 2026 Joseph Burt · Built with curiosity</span>
-        <div class="links">
-          <a href="https://services.burtlabs.org/" target="_blank" rel="noopener">Ellis County repair</a>
-          <a href="https://github.com/josephburt" target="_blank" rel="noopener">GitHub</a>
-          <a href="https://x.com/josephburt" target="_blank" rel="noopener">X</a>
-          <a href="https://www.youtube.com/@HeyItsBurt-Main" target="_blank" rel="noopener">YouTube</a>
-          <a href="https://www.linkedin.com/in/heyitsburt/" target="_blank" rel="noopener">LinkedIn</a>
-        </div>
-      </div>
+  <footer class="site-footer">
+    <div class="wrap foot">
+      <p>Dallas–Fort Worth · Ellis County, Texas</p>
+      <p>© <span id="y"></span> Joseph Burt · Hey, it's Burt · <a href="https://services.burtlabs.org/" rel="noopener">services.burtlabs.org</a> · <a href="https://github.com/josephburt" rel="noopener">GitHub</a> · <a href="https://x.com/josephburt" rel="noopener">X</a> · <a href="https://www.youtube.com/@HeyItsBurt-Main" rel="noopener">YouTube</a> · <a href="https://www.linkedin.com/in/heyitsburt/" rel="noopener">LinkedIn</a></p>
     </div>
   </footer>
 

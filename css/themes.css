@@ -1,22 +1,10 @@
 :root {
-  --bg: #07090c;
-  --bg-2: #10151c;
-  --bg-3: #181f29;
-  --cream: #f3eadc;
-  --orange: #d48a4a;
-  --orange-hot: #f0a15c;
-  --phosphor: #7dffb3;
-  --phosphor-dim: rgba(125, 255, 179, 0.55);
-  --accent: #8eb4d4;
-  --muted: rgba(243, 234, 220, 0.62);
-  --line: rgba(243, 234, 220, 0.1);
-  --line-2: rgba(243, 234, 220, 0.18);
-  --nav-bg: rgba(7, 9, 12, 0.82);
-  --nav-bg-menu: rgba(7, 9, 12, 0.97);
-  --hero-glow: rgba(212, 138, 74, 0.16);
-  --orange-soft: rgba(212, 138, 74, 0.12);
-  --bio: rgba(243, 234, 220, 0.84);
-  --grain: rgba(243, 234, 220, 0.018);
-  --pulse-ring: rgba(125, 255, 179, 0.22);
-  --shadow: 0 24px 80px rgba(0, 0, 0, 0.45);
+  --ink: #161410;
+  --muted: #5c574e;
+  --paper: #f6f1e6;
+  --paper-2: #efe8d8;
+  --line: #d9d0bc;
+  --navy: #1a2744;
+  --navy-2: #24365c;
+  --red: #9e2a2b;
 }
